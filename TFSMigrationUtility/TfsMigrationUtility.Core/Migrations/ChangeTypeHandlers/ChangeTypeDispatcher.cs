@@ -8,6 +8,9 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
 {
     public static class ChangeTypeDispatcher
     {
-        //TODO
+        public static void Dispatch(/*TODO Parameters*/)
+        {
+            //TODO body
+        }
     }
 }
