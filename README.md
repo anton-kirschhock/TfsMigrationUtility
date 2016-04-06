@@ -12,7 +12,7 @@ A free custom opensource utility to migrate a TFS project (or collection) from A
 
 # Collaboration
 
-WIP
+This is still Work in progress...
 
 # Documentation sources
 - MSDN: TFS C# API documentation
@@ -22,6 +22,11 @@ WIP
 - *More comming soon*
 
 *Big Thanks to all who helped me directly by showing me the light or indirectly by posting these blogs and stackoverflows!*
+
+#Used technologies
+- Microsoft Unity 4
+- Microsoft WPF
+- Microsoft Team Foundation Server C# API
 
 # Working prototype
 https://github.com/muziekklas/TfsMigrationUtility.Prototype
