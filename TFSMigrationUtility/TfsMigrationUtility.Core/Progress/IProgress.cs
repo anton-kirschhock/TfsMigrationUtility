@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TfsMigrationUtility.Core.Progress
 {
-    class IProgress
+    public interface IProgress
     {
+        void OnProgress(int currentstep, int maxstep, string description);
     }
 }
