@@ -8,5 +8,11 @@ namespace TfsMigrationUtility.Core.Configuration
 {
     public class MigrationConfig
     {
+        public bool DebugMode { get; set; } = false;
+        //TFS from
+        public string SourceProject { get; set; } = "$/";
+
+        //TFS To
+        public string TargetProject { get; set; } = "$/";
     }
 }

@@ -9,5 +9,7 @@ namespace TfsMigrationUtility.Core.Progress
     public interface IProgress
     {
         void OnProgress(int currentstep, int maxstep, string description);
+        void WriteDebug(string message);
+        void WriteException(string message, Exception ex);
     }
 }
