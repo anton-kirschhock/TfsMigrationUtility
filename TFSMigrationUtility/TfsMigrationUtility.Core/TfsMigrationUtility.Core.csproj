@@ -258,6 +258,7 @@
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Throwables\AppException.cs" />
     <Compile Include="Throwables\InvalidConfigurationException.cs" />
+    <Compile Include="Throwables\InvalidWorkspaceSetupException.cs" />
     <Compile Include="Utilities\DirectoryUtilities.cs" />
     <Compile Include="Utilities\TFSPathUtilities.cs" />
   </ItemGroup>

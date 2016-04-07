@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.TeamFoundation.VersionControl.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,15 @@ namespace TfsMigrationUtility.Core.Migrations.Workspace
     {
         string SourceRoot { get; set; }
         string LocalRoot { get; set; }
-        
+        bool IsAutoClean { get; set; }
+        VersionControlServer SourceServer { get; set; }
+
         bool DirectoryExists(string sourceremotepath);
         bool FileExists(string sourceremotepath);
         bool CreateDirectory(string sourceremotepath);
         bool DownloadItem(string sourceremotepath);
         bool RemoveItem(string sourceremotepath);
-        bool PrepareWorkspace();
+        bool TryPrepareWorkspace();
+        void PrepareWorkspace();
     }
 }

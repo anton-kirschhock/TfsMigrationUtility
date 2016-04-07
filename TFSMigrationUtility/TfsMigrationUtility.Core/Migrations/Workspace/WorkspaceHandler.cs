@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TfsMigrationUtility.Core.Progress;
+using TfsMigrationUtility.Core.Throwables;
+using TfsMigrationUtility.Core.Utilities;
 
 namespace TfsMigrationUtility.Core.Migrations.Workspace
 {
@@ -16,9 +18,10 @@ namespace TfsMigrationUtility.Core.Migrations.Workspace
         public string SourceRoot { get; set; }
 
         public VersionControlServer SourceServer { get; set; }
+        public bool IsAutoClean { get; set; }
 
         private IProgressManager ProgressManager { get; set; }
-        public WorkspaceHandler(string localroot, string sourceroot, VersionControlServer sourceserver)
+        public WorkspaceHandler(string localroot, string sourceroot, VersionControlServer sourceserver,bool autoclean= false)
         {
             LocalRoot = localroot;
             SourceRoot = sourceroot;
@@ -122,16 +125,41 @@ namespace TfsMigrationUtility.Core.Migrations.Workspace
             return true;
         }
 
-        public bool PrepareWorkspace()
+        public bool TryPrepareWorkspace()
         {
             try
             {
-
+                PrepareWorkspace();
                 return true;
-            }catch(Exception e)
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public void PrepareWorkspace()
+        {
+            try
+            {
+                var dExists = Directory.Exists(LocalRoot);
+                if (!dExists)
+                {
+                    Directory.CreateDirectory(LocalRoot);
+                }
+                else if (dExists && IsAutoClean)
+                {
+                    Directory.Delete(LocalRoot);
+                    Directory.CreateDirectory(LocalRoot);
+                }
+                else if(dExists && DirectoryUtilities.CountFiles(LocalRoot)!=0)
+                {
+                    throw new InvalidWorkspaceSetupException("Workspace is not empty!");
+                }
+            }
+            catch(Exception e)
             {
                 ProgressManager.WriteException($"Exception occured while preparing the workspace in {this.LocalRoot}", e);
-                return false;
+                throw new InvalidWorkspaceSetupException(e.Message, e);
             }
         }
     }

@@ -13,7 +13,7 @@ namespace TfsMigrationUtility.Core.Progress
         int CurrentStep { get; set; }
         int MaxStep { get; set; }
         void InvokeProgress(int currentstep, int maxstep, string description);
-        void InvokeProgress(string description);
+        void InvokeProgress(string description,bool incrementcurrentStep = true);
         void WriteDebug(string message);
         void WriteException(string message, Exception e);
     }
@@ -32,9 +32,9 @@ namespace TfsMigrationUtility.Core.Progress
             }
         }
 
-        public void InvokeProgress(string description)
+        public void InvokeProgress(string description, bool incrementcurrentStep = true)
         {
-            InvokeProgress(++CurrentStep, MaxStep, description);
+            InvokeProgress((incrementcurrentStep? ++CurrentStep:CurrentStep), MaxStep, description);
         }
 
         public void InvokeProgress(int currentstep, int maxstep, string description)
