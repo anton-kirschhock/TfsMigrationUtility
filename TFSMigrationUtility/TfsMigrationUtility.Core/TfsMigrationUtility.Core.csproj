@@ -247,7 +247,10 @@
     <Compile Include="Configuration\StringMigrationConfig.cs" />
     <Compile Include="Migrations\BranchInformation.cs" />
     <Compile Include="Migrations\ChangeTypeHandlers\ChangeTypeDispatcher.cs" />
+    <Compile Include="Migrations\ChangeTypeHandlers\File\FileTypeMapping.cs" />
+    <Compile Include="Migrations\ChangeTypeHandlers\Folder\FolderTypeMapping.cs" />
     <Compile Include="Migrations\ChangeTypeHandlers\IChangeTypeHandler.cs" />
+    <Compile Include="Migrations\ChangeTypeHandlers\IItemTypeMapping.cs" />
     <Compile Include="Migrations\IMigrationHandler.cs" />
     <Compile Include="Migrations\MigrationHandler.cs" />
     <Compile Include="Migrations\Workspace\IWorkspaceHandler.cs" />
@@ -260,12 +263,10 @@
     <Compile Include="Throwables\InvalidConfigurationException.cs" />
     <Compile Include="Throwables\InvalidWorkspaceSetupException.cs" />
     <Compile Include="Utilities\DirectoryUtilities.cs" />
+    <Compile Include="Utilities\EnumUtilities.cs" />
     <Compile Include="Utilities\TFSPathUtilities.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\ChangeTypeHandlers\File\" />
-    <Folder Include="Migrations\ChangeTypeHandlers\Folder\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

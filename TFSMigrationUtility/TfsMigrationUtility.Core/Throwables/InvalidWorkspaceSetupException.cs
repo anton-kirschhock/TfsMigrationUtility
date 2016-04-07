@@ -9,9 +9,8 @@ namespace TfsMigrationUtility.Core.Throwables
     public class InvalidWorkspaceSetupException:AppException
     {
         public InvalidWorkspaceSetupException(string msg) : base($"The workspace is invalid due to: {msg}") { }
-        {
 
-        }
+
         public InvalidWorkspaceSetupException(string msg,Exception inner):base($"The workspace is invalid due to: {msg}",inner){}
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TfsMigrationUtility.Core.Configuration;
 using TfsMigrationUtility.Core.Migrations.Workspace;
+using TfsMigrationUtility.Core.Utilities;
 
 namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
 {
@@ -26,19 +27,28 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
             string localpath,
             string newremotepath,
             Item changeItem);
-    }
 
-    public abstract class AbstractFileChangeTypeHandler : IChangeTypeHandler
+        void RegisterType();
+    }
+    public abstract class AbstractChangeTypeHandler : IChangeTypeHandler
     {
         public abstract ChangeType ChangeType { get; }
-        public ItemType ItemType { get { return ItemType.File; } }
+        public abstract ItemType ItemType { get; }
 
         public abstract bool HandleChange(MigrationConfig config, VersionControlServer sourceServer, VersionControlServer targetServer, Dictionary<BranchInformation, bool> branchInformation, TFSWorkspace targetWorkspace, IWorkspaceHandler workspacehander, Change change, string newComment, VersionSpec version, string localpath, string newremotepath, Item changeItem);
+        public void RegisterType()
+        {
+            //internal convention: EnumUtilities.GetUsableFlagString(Itemtype)/EnumUtilities.GetUsableFlagString(Changetype)
+            ServiceLocator.Add<IChangeTypeHandler>(this, (EnumUtilities.GetUsableFlagString(ItemType) + "/" + EnumUtilities.GetUsableFlagString(ChangeType)));
+        }
     }
-    public abstract class AbstractFolderChangeTypeHandler : IChangeTypeHandler
+
+    public abstract class AbstractFileChangeTypeHandler : AbstractChangeTypeHandler
     {
-        public abstract ChangeType ChangeType { get; }
-        public ItemType ItemType { get { return ItemType.Folder; } }
-        public abstract bool HandleChange(MigrationConfig config, VersionControlServer sourceServer, VersionControlServer targetServer, Dictionary<BranchInformation, bool> branchInformation, TFSWorkspace targetWorkspace, IWorkspaceHandler workspacehander, Change change, string newComment, VersionSpec version, string localpath, string newremotepath, Item changeItem);
+        public override ItemType ItemType { get { return ItemType.File; } }
+    }
+    public abstract class AbstractFolderChangeTypeHandler : AbstractChangeTypeHandler
+    {
+        public override ItemType ItemType { get { return ItemType.Folder; } }
     }
 }
