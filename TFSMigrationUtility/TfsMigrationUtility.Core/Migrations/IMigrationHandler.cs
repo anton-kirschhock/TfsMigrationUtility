@@ -9,8 +9,6 @@ namespace TfsMigrationUtility.Core.Migrations
 {
     public interface IMigrationHandler
     {
-        //TODO
-
         Task Migrate(MigrationConfig config);
     }
 }

@@ -41,7 +41,7 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
                 if(handler != null)
                 {
                     progressmanager.WriteDebug($"A handler for {changeItem.ItemType}/{change.ChangeType} was located.");
-                    handler.HandleChange(config,
+                    bool result = handler.HandleChange(config,
                                          sourceServer,
                                          targetServer,
                                          branchInformation,
@@ -54,6 +54,14 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
                                          newremotepath,
                                          changeItem
                     );
+                    if (result)
+                    {
+                        progressmanager.InvokeProgress($"handler for {changeItem.ItemType}/{change.ChangeType} was successful!");
+                    }
+                    else
+                    {
+                        progressmanager.InvokeProgress($"handler for {changeItem.ItemType}/{change.ChangeType} Failed or was skipped.");
+                    }
                 }
                 else
                 {

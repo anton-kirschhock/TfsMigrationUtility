@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TfsMigrationUtility.Core.Configuration;
 using TfsMigrationUtility.Core.Progress;
 using TfsMigrationUtility.Core.Throwables;
 using TfsMigrationUtility.Core.Utilities;
@@ -160,6 +161,42 @@ namespace TfsMigrationUtility.Core.Migrations.Workspace
             {
                 ProgressManager.WriteException($"Exception occured while preparing the workspace in {this.LocalRoot}", e);
                 throw new InvalidWorkspaceSetupException(e.Message, e);
+            }
+        }
+
+        public bool Checkin(MigrationConfig config,Microsoft.TeamFoundation.VersionControl.Client.Workspace targetWorkspace,string message)
+        {
+            var changes = targetWorkspace.GetPendingChanges();
+            if(changes.Length != 0)
+            {
+                try {
+                    targetWorkspace.CheckIn(changes, message);
+                } catch(CheckinException ce)
+                {
+                    if(ce.Conflicts != null && ce.Conflicts.Length != 0) {
+                        Conflict[] conflicts = targetWorkspace.QueryConflicts(new[] { config.TargetProject }, true);
+                        foreach(Conflict conflict in conflicts)
+                        {
+                            if (conflict.YourItemType.HasFlag(ItemType.Folder))
+                            {
+                                conflict.Resolution = Resolution.AcceptMerge;
+                            }else if (conflict.YourItemType.HasFlag(ItemType.File))
+                            {
+                                conflict.Resolution = Resolution.AcceptYours;
+                            }
+                            targetWorkspace.ResolveConflict(conflict);
+                        }
+                        var conflictchanges = targetWorkspace.GetPendingChanges();
+                        if (conflictchanges.Length != 0) targetWorkspace.CheckIn(conflictchanges, message);
+                            ProgressManager.WriteDebug($"{conflictchanges.Length} conflicts resolved!");
+                    }
+
+                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

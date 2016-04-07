@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TfsMigrationUtility.Core.Configuration;
+using TFSWorkspace = Microsoft.TeamFoundation.VersionControl.Client.Workspace;
 namespace TfsMigrationUtility.Core.Migrations.Workspace
 {
     public interface IWorkspaceHandler
@@ -21,5 +22,6 @@ namespace TfsMigrationUtility.Core.Migrations.Workspace
         bool RemoveItem(string sourceremotepath);
         bool TryPrepareWorkspace();
         void PrepareWorkspace();
+        bool Checkin(MigrationConfig config, TFSWorkspace workspace, string message);
     }
 }

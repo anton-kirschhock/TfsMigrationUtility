@@ -10,7 +10,6 @@ namespace TfsMigrationUtility.Core.Utilities
     public static class DirectoryUtilities
     {
 
-        //TODO: check if needed
         public static int CountFiles(string dir)
         {
             DirectoryInfo di = new DirectoryInfo(dir);
