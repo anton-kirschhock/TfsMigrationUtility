@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TfsMigrationUtility.Core.Configuration;
 using TfsMigrationUtility.Core.Migrations.Workspace;
 using TfsMigrationUtility.Core.Utilities;
+using TfsMigrationUtility.Core.Progress;
 
 namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
 {
@@ -34,7 +35,13 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
     {
         public abstract ChangeType ChangeType { get; }
         public abstract ItemType ItemType { get; }
-
+        public IProgressManager ProgressManager
+        {
+            get
+            {
+                return ServiceLocator.Get<IProgressManager>();
+            }
+        }
         public abstract bool HandleChange(MigrationConfig config, VersionControlServer sourceServer, VersionControlServer targetServer, Dictionary<BranchInformation, bool> branchInformation, TFSWorkspace targetWorkspace, IWorkspaceHandler workspacehander, Change change, string newComment, VersionSpec version, string localpath, string newremotepath, Item changeItem);
         public void RegisterType()
         {

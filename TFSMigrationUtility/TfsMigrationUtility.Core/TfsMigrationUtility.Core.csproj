@@ -247,7 +247,14 @@
     <Compile Include="Configuration\StringMigrationConfig.cs" />
     <Compile Include="Migrations\BranchInformation.cs" />
     <Compile Include="Migrations\ChangeTypeHandlers\ChangeTypeDispatcher.cs" />
+    <Compile Include="Migrations\ChangeTypeHandlers\File\FileRenameChangeTypeHandler.cs" />
+    <Compile Include="Migrations\ChangeTypeHandlers\File\FileDeleteChangeTypeHandler.cs" />
+    <Compile Include="Migrations\ChangeTypeHandlers\File\FileEditChangeTypeHandler.cs" />
     <Compile Include="Migrations\ChangeTypeHandlers\File\FileTypeMapping.cs" />
+    <Compile Include="Migrations\ChangeTypeHandlers\File\FileAddChangeTypeHandler.cs" />
+    <Compile Include="Migrations\ChangeTypeHandlers\Folder\FolderRenameChangeTypeHandler.cs" />
+    <Compile Include="Migrations\ChangeTypeHandlers\Folder\FolderDeleteChangeTypeHandler.cs" />
+    <Compile Include="Migrations\ChangeTypeHandlers\Folder\FolderAddChangeTypeHandler.cs" />
     <Compile Include="Migrations\ChangeTypeHandlers\Folder\FolderTypeMapping.cs" />
     <Compile Include="Migrations\ChangeTypeHandlers\IChangeTypeHandler.cs" />
     <Compile Include="Migrations\ChangeTypeHandlers\IItemTypeMapping.cs" />

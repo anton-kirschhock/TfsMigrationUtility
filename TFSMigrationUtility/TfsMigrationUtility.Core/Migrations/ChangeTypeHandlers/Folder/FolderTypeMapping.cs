@@ -14,12 +14,10 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers.Folder
         {
             if (type.HasFlag(ChangeType.Add) || type.HasFlag(ChangeType.Branch))
                 return (EnumUtilities.GetUsableFlagString(ItemType.Folder) + "/" + EnumUtilities.GetUsableFlagString(ChangeType.Add));
-            else if (type.HasFlag(ChangeType.Edit))
-                return (EnumUtilities.GetUsableFlagString(ItemType.Folder) + "/" + EnumUtilities.GetUsableFlagString(ChangeType.Edit));
             else if (type.HasFlag(ChangeType.Delete))
                 return (EnumUtilities.GetUsableFlagString(ItemType.Folder) + "/" + EnumUtilities.GetUsableFlagString(ChangeType.Delete));
             else if (type.HasFlag(ChangeType.Rename))
-                return (EnumUtilities.GetUsableFlagString(ItemType.Folder) + "/" + EnumUtilities.GetUsableFlagString(ChangeType.Delete));
+                return (EnumUtilities.GetUsableFlagString(ItemType.Folder) + "/" + EnumUtilities.GetUsableFlagString(ChangeType.Rename));
             else return null;
         }
 

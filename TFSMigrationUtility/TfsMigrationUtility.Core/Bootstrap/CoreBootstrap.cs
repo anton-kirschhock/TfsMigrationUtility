@@ -24,7 +24,14 @@ namespace TfsMigrationUtility.Core.Bootstrap
             ServiceLocator.Add<IItemTypeMapping>(new FolderTypeMapping(),ItemType.Folder.ToString());
             ServiceLocator.Add<IItemTypeMapping>(new FileTypeMapping(),ItemType.File.ToString());
             #region "Change Handlers"
+            new FolderAddChangeTypeHandler().RegisterType();
+            new FolderDeleteChangeTypeHandler().RegisterType();
+            new FolderRenameChangeTypeHandler().RegisterType();
 
+            new FileAddChangeTypeHandler().RegisterType();
+            new FileDeleteChangeTypeHandler().RegisterType();
+            new FileEditChangeTypeHandler().RegisterType();
+            new FileRenameChangeTypeHandler().RegisterType();
             #endregion
 
         }
