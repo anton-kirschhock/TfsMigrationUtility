@@ -245,14 +245,19 @@
     <Compile Include="Bootstrap\IBootstrap.cs" />
     <Compile Include="Configuration\MigrationConfig.cs" />
     <Compile Include="Configuration\StringMigrationConfig.cs" />
+    <Compile Include="Migrations\BranchInformation.cs" />
     <Compile Include="Migrations\ChangeTypeHandlers\ChangeTypeDispatcher.cs" />
     <Compile Include="Migrations\ChangeTypeHandlers\IChangeTypeHandler.cs" />
     <Compile Include="Migrations\IMigrationHandler.cs" />
     <Compile Include="Migrations\MigrationHandler.cs" />
+    <Compile Include="Migrations\Workspace\IWorkspaceHandler.cs" />
+    <Compile Include="Migrations\Workspace\WorkspaceHandler.cs" />
     <Compile Include="Progress\IProgress.cs" />
     <Compile Include="Progress\ProgressManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />
+    <Compile Include="Throwables\AppException.cs" />
+    <Compile Include="Throwables\InvalidConfigurationException.cs" />
     <Compile Include="Utilities\DirectoryUtilities.cs" />
     <Compile Include="Utilities\TFSPathUtilities.cs" />
   </ItemGroup>

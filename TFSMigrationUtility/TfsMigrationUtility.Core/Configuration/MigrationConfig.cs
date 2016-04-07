@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TfsMigrationUtility.Core.Throwables;
 
 namespace TfsMigrationUtility.Core.Configuration
 {
@@ -34,10 +35,46 @@ namespace TfsMigrationUtility.Core.Configuration
         /// The path to the target project
         /// </summary>
         public virtual string TargetProject { get; set; } = "$/";
+        /// <summary>
+        /// The path where the migration will be stored
+        /// </summary>
+        public string LocalPath { get; set; }
 
+        /// <summary>
+        /// Indicates if the local path should be cleaned
+        /// </summary>
+        public bool AutoCleanLocalPath { get; set; } = false;
         public override string ToString()
         {
             return $"MigrateConfiguration:{(this.FullCollection?"the full collection":$"{SourceProject} to {TargetProject}")} from {SourceProjectCollection.Uri.ToString()} to {TargetProjectCollection.Uri.ToString()}{(DebugMode?" in debugmode":"")}";
+        }
+        /// <summary>
+        /// Validates the configuration without throwing an exception
+        /// </summary>
+        /// <returns>True if Validated, False if not</returns>
+        public virtual bool TryValidate()
+        {
+            try
+            {
+                Validate();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Validates the configuration. If a field is not valid, it will throw an exception with the name of the property
+        /// </summary>
+        public virtual void Validate()
+        {
+            //TODO make Resources for strings
+            if (SourceProjectCollection == null) throw new InvalidConfigurationException(nameof(SourceProjectCollection), "A Connection to a source TFS is required!");
+            if (string.IsNullOrWhiteSpace(SourceProject)) throw new InvalidConfigurationException(nameof(SourceProject), "The Source project path is required!");
+            if (TargetProjectCollection == null) throw new InvalidConfigurationException(nameof(TargetProjectCollection), "A Connection to a target TFS is required!");
+            if (string.IsNullOrWhiteSpace(TargetProject)) throw new InvalidConfigurationException(nameof(TargetProject), "The target project path is required!");
+            if (string.IsNullOrWhiteSpace(LocalPath)) throw new InvalidConfigurationException(nameof(LocalPath), "The local workspace path is required!");
         }
     }
 }
