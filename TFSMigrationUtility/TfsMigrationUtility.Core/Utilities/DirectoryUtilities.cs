@@ -9,11 +9,14 @@ namespace TfsMigrationUtility.Core.Utilities
 {
     public static class DirectoryUtilities
     {
+
+        //TODO: check if needed
         public static int CountFiles(string dir)
         {
             DirectoryInfo di = new DirectoryInfo(dir);
             return di.GetFiles("*", SearchOption.AllDirectories).Count();
         }
+        //TODO: check if needed
         public static void CloneDirectory(string sourceDirectory, string targetDirectory, Action<string> incrementcallback = null)
         {
             DirectoryInfo diSource = new DirectoryInfo(sourceDirectory);
@@ -21,7 +24,7 @@ namespace TfsMigrationUtility.Core.Utilities
 
             CloneDirectory(diSource, diTarget, incrementcallback);
         }
-
+        //TODO: check if needed
         public static void CloneDirectory(DirectoryInfo source, DirectoryInfo target, Action<string> incrementcallback = null)
         {
             Directory.CreateDirectory(target.FullName);

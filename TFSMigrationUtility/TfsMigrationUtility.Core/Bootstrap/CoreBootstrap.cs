@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TfsMigrationUtility.Core.Migrations;
+using TfsMigrationUtility.Core.Progress;
 
 namespace TfsMigrationUtility.Core.Bootstrap
 {
@@ -10,7 +12,11 @@ namespace TfsMigrationUtility.Core.Bootstrap
     {
         public void Bootstrap()
         {
-            //Bootstrap all Migration posibilities
+            //Register the MigrationHandler
+            ServiceLocator.Add<IMigrationHandler, MigrationHandler>();
+            //Register the ProgressManager
+            ServiceLocator.Add<IProgressManager, ProgressManager>();
+
         }
     }
 }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace TfsMigrationUtility.Core.Utilities
 {
+    /// <summary>
+    /// Class Containing helper methods for TFS
+    /// </summary>
     public static class TFSPathUtilities
     {
         /// <summary>
