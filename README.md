@@ -23,10 +23,15 @@ This is still Work in progress...
 
 *Big Thanks to all who helped me directly by showing me the light or indirectly by posting these blogs and stackoverflows!*
 
-#Used technologies
+#Used technologies/Resources
 - Microsoft Unity 4
 - Microsoft WPF
 - Microsoft Team Foundation Server C# API
+- Google Material Design Icons: https://design.google.com/icons/index.html
 
 # Working prototype
 https://github.com/muziekklas/TfsMigrationUtility.Prototype
+
+# Copyrights:
+
+This is still Work in progress...
