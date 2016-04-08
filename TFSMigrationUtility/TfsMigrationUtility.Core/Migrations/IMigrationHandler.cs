@@ -9,6 +9,7 @@ namespace TfsMigrationUtility.Core.Migrations
 {
     public interface IMigrationHandler
     {
+        bool IsRunning { get; }
         Task Migrate(MigrationConfig config);
     }
 }

@@ -16,6 +16,9 @@ namespace TfsMigrationUtility.Core.Migrations
     public class MigrationHandler : IMigrationHandler
     {
         private IProgressManager ProgressManager{ get;set; }
+
+        public bool IsRunning { get; private set; } = false;
+
         public MigrationHandler()
         {
             this.ProgressManager = ServiceLocator.Get<IProgressManager>();
@@ -23,13 +26,30 @@ namespace TfsMigrationUtility.Core.Migrations
         public async Task Migrate(MigrationConfig config)
         {
             try {
-                ProgressManager.InvokeProgress(0, 4, "Validating configuration...");
+                IsRunning = true;
+                ProgressManager.InvokeProgress(0, 5, "Validating configuration...");
                 config.Validate();
                 ProgressManager.InvokeProgress("Configuration is valid!");
                 ProgressManager.InvokeProgress("Connecting to version control servers...",false);
+                config.SourceProjectCollection.EnsureAuthenticated();
+                config.TargetProjectCollection.EnsureAuthenticated();
                 VersionControlServer sourceServer = config.SourceProjectCollection.GetService<VersionControlServer>();
                 VersionControlServer targetServer = config.TargetProjectCollection.GetService<VersionControlServer>();
                 ProgressManager.InvokeProgress("Connected!");
+                ProgressManager.InvokeProgress("Checking projects...",false);
+                if (!sourceServer.ServerItemExists(config.SourceProject, ItemType.Any))
+                {
+                    throw new ProjectNotFoundException($"Project {config.SourceProject} does not exist on the source server!");
+                }
+                if (!sourceServer.ServerItemExists(config.TargetProject, ItemType.Any))
+                {
+                    if (config.AutoCreateProject)
+                    {
+                        ProgressManager.InvokeProgress("Autocreation is not implemented yet!", false);
+                    }
+                    //else
+                        throw new ProjectNotFoundException($"Project {config.TargetProject} does not exist on the target server! Please create the project or enable the AutoCreate option and try again");
+                }
                 ProgressManager.InvokeProgress("Preparing local workspace...", false);
                 IWorkspaceHandler workspacehandler = new WorkspaceHandler(config.LocalPath,config.SourceProject,sourceServer,config.AutoCleanLocalPath);
                 workspacehandler.PrepareWorkspace();
@@ -51,11 +71,34 @@ namespace TfsMigrationUtility.Core.Migrations
                 ProgressManager.InvokeProgress($"Found {branchInformation.Count()} branches in total!");
                 await MigrateWorker(config, sourceServer,targetServer, branchInformation, targetWorkspace, workspacehandler);
             }
+            catch(ProjectNotFoundException pnfe)
+            {
+                ProgressManager.WriteException($"{pnfe.Message}", pnfe);
+            }
             catch(InvalidConfigurationException configex) {
                 ProgressManager.WriteException($"{configex.PropertyName}=>{configex.Message}", configex);
             }catch(Exception e){
                 ProgressManager.WriteException($"{e.Message}", e);
             }
+            //Cleanup:
+            if (config.AutoCleanLocalPath)
+            {
+                try
+                {
+                    //cleanup
+                    ProgressManager.InvokeProgress(0, 1, "Starting local directory cleanup...");
+                    if (System.IO.Directory.Exists(config.LocalPath))
+                    {
+                        System.IO.Directory.Delete(config.LocalPath);
+                    }
+                    ProgressManager.InvokeProgress("Done with cleanup");
+                }
+                catch (Exception e)
+                {
+                    ProgressManager.WriteException($"Something happend while cleaning the local path: {e.Message}", e);
+                }
+            }
+            IsRunning = true;
         }
 
         public async Task MigrateWorker(MigrationConfig config,

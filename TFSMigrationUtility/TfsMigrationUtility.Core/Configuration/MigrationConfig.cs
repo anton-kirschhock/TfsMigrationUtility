@@ -14,9 +14,14 @@ namespace TfsMigrationUtility.Core.Configuration
         /// Indicates if the tool has to print out everything
         /// </summary>
         public bool DebugMode { get; set; } = false;
-
         /// <summary>
-        /// Indicates if the tool has to migrate the full Collection
+        /// Indicates if the tool has to create the project
+        /// </summary>
+        public bool AutoCreateProject { get; set; } = false;
+        /// <summary>
+        /// Indicates if the tool has to migrate the full Collection. 
+        /// Note: The core is not using this property and expects a single project each time. 
+        /// The migration of multiple projects is handled by the caller
         /// </summary>
         public bool FullCollection { get; set; } = false;
         /// <summary>

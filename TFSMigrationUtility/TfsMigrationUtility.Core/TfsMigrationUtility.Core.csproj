@@ -267,8 +267,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Throwables\AppException.cs" />
+    <Compile Include="Throwables\ChangeTypeHandlerException.cs" />
     <Compile Include="Throwables\InvalidConfigurationException.cs" />
     <Compile Include="Throwables\InvalidWorkspaceSetupException.cs" />
+    <Compile Include="Throwables\ProjectNotFoundException.cs" />
     <Compile Include="Utilities\DirectoryUtilities.cs" />
     <Compile Include="Utilities\EnumUtilities.cs" />
     <Compile Include="Utilities\TFSPathUtilities.cs" />

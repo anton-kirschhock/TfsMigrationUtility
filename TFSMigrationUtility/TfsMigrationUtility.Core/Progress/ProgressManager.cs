@@ -56,6 +56,11 @@ namespace TfsMigrationUtility.Core.Progress
                 }
             }
         }
+        /// <summary>
+        /// Writes an exception. This doesn't mean that the application is stopping for the Exception => check IsRunning of the MigrationHandler
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="e"></param>
         public void WriteException(string message, Exception e)
         {
             foreach (IProgress progress in ProgressHandlers)

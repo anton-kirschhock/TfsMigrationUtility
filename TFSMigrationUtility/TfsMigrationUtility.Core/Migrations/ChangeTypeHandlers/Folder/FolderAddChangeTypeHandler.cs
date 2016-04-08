@@ -7,6 +7,7 @@ using Microsoft.TeamFoundation.VersionControl.Client;
 using TfsMigrationUtility.Core.Configuration;
 using TfsMigrationUtility.Core.Migrations.Workspace;
 using System.IO;
+using TfsMigrationUtility.Core.Throwables;
 
 namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers.Folder
 {
@@ -55,8 +56,7 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers.Folder
                 }
                 catch (Exception ex)
                 {
-                    ProgressManager.WriteException($"Error occured while branching {newremotepath}:{ex.Message}", ex);
-                    return false;
+                    throw new ChangeTypeHandlerException(this.ItemType, this.ChangeType, $"Error occured while branching {newremotepath}:{ex.Message}", ex);
                 }
             }
             else
