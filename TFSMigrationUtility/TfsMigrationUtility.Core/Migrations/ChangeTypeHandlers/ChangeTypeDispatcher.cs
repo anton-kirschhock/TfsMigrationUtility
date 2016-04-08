@@ -70,7 +70,7 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
             }
             catch (VersionControlException vce)
             {
-                progressmanager.WriteDebug($"VersionControlException while handling {change.Item.ServerItem} with changetype {change.ChangeType}: {vce.Message}",);
+                progressmanager.WriteDebug($"VersionControlException while handling {change.Item.ServerItem} with changetype {change.ChangeType}: {vce.Message}");
             }
         }
         

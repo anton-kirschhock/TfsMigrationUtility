@@ -35,6 +35,10 @@ namespace TfsMigrationUtility.Core
         {
             _container.RegisterInstance<TProxyType>(key, implementation);
         }
+        public static void Add<TProxyType,TImplementation>(string key) where TImplementation : TProxyType
+        {
+            _container.RegisterType(typeof(TProxyType),typeof(TImplementation),key);
+        }
 
         public static void Add<TProxyType, TImplementation>() where TImplementation:TProxyType
         {

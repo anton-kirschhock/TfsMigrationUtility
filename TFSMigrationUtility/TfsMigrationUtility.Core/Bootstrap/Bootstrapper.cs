@@ -12,11 +12,16 @@ namespace TfsMigrationUtility.Core.Bootstrap
         public static void Bootstrap()
         {
             //resolve all IBootstrap instances in all
-            var bootstrapInstances = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t =>
-                    t.GetInterfaces().Contains(typeof(IBootstrap)) &&
-                    t.GetConstructor(Type.EmptyTypes) != null)
-                .Select(t => Activator.CreateInstance(t) as IBootstrap);
+            Type ibootstrap = typeof(IBootstrap);
+            var bootstrapInstances = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .Where(t =>!t.IsInterface && ibootstrap.IsAssignableFrom(t))
+                .Select(a => Activator.CreateInstance(a) as IBootstrap);
+            //var bootstrapInstances = Assembly.GetExecutingAssembly().GetTypes()
+            //    .Where(t =>
+            //        t.GetInterfaces().Contains(typeof(IBootstrap)) &&
+            //        t.GetConstructor(Type.EmptyTypes) != null)
+            //    .Select(t => Activator.CreateInstance(t) as IBootstrap);
 
             foreach (var bootstrapInstance in bootstrapInstances)
             {

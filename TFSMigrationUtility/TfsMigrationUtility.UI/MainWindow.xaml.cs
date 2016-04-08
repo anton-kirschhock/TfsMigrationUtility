@@ -12,17 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TfsMigrationUtility.UI.View;
+using TfsMigrationUtility.UI.ViewModels;
 
 namespace TfsMigrationUtility.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IView
     {
-        public MainWindow()
+        public IViewModel ViewModel
         {
-            InitializeComponent();
+            get
+            {
+                return this.DataContext as IViewModel;
+            }
+
+            set
+            {
+                this.DataContext = value;
+            }
         }
     }
 }
