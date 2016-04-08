@@ -12,8 +12,8 @@ namespace TfsMigrationUtility.UI
     public interface IUIManager
     {
         IViewModel GetViewModel(Views view);
-        bool ShowView<TViewModel>(TViewModel instance) where TViewModel : IViewModel;
-        bool CloseView<TViewModel>(TViewModel instance) where TViewModel : IViewModel;
+        bool ShowView<TViewModel>(TViewModel instance) where TViewModel : IViewModel, IParentViewModel;
+        bool CloseView<TViewModel>(TViewModel instance) where TViewModel : IViewModel, IParentViewModel;
         IView GetStartupWindow();
     }
     public class UIManager : IUIManager
@@ -22,7 +22,7 @@ namespace TfsMigrationUtility.UI
         /// Contains a key,value pair of active windows and its ViewModels
         /// </summary>
         private Dictionary<Type, IView> ViewMapping = new Dictionary<Type, IView>();
-        public bool ShowView<TViewModel>(TViewModel instance) where TViewModel : IViewModel
+        public bool ShowView<TViewModel>(TViewModel instance) where TViewModel : IViewModel,IParentViewModel
         {
             IView view = null;
             if (!ViewMapping.ContainsKey(typeof(TViewModel)))
@@ -36,7 +36,7 @@ namespace TfsMigrationUtility.UI
             view.Show();
             return true;
         }
-        public bool CloseView<TViewModel>(TViewModel instance) where TViewModel : IViewModel
+        public bool CloseView<TViewModel>(TViewModel instance) where TViewModel : IViewModel, IParentViewModel
         {
             if (ViewMapping.ContainsKey(typeof(TViewModel)))
             {
@@ -59,6 +59,7 @@ namespace TfsMigrationUtility.UI
             }
             view = ViewMapping[typeof(MainWindowViewModel)];
             IViewModel vm = GetViewModel(Views.MainWindow);
+            view.ViewModel = vm;
             return view;
         }
 

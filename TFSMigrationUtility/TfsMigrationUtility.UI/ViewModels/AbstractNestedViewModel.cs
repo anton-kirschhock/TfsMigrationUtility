@@ -16,9 +16,8 @@ namespace TfsMigrationUtility.UI.ViewModels
     {
         protected IViewModel Parent { get; private set; }
         private string PropertyName { get; set; }
-        public AbstractNestedViewModel(IViewModel Parent, string PropertyName) :this(ServiceLocator.Get<IUIManager>(),Parent,PropertyName){}
 
-        public AbstractNestedViewModel(IUIManager uimanager,IViewModel Parent,string PropertyName):base(uimanager)
+        public AbstractNestedViewModel(IViewModel Parent,string PropertyName):base()
         {
             this.Parent = Parent;
             this.PropertyName = PropertyName;

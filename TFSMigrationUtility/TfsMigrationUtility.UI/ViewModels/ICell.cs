@@ -15,6 +15,7 @@ namespace TfsMigrationUtility.UI.ViewModels
     public interface ICell<T>:INotifyPropertyChanged
     {
         T Value { get; set; }
+        bool HasValue();
     }
     /// <summary>
     /// A generic wrapper to assist with the Propertychanged. Because they are "little viewmodels", they inherit of AbstractNestedViewModel, which can be nested.
@@ -40,6 +41,11 @@ namespace TfsMigrationUtility.UI.ViewModels
         public Cell(T value,IViewModel parent,string propertyname):base(parent,propertyname)
         {
             _value = value;
+        }
+
+        public bool HasValue()
+        {
+            return Value != null;
         }
     }
 }

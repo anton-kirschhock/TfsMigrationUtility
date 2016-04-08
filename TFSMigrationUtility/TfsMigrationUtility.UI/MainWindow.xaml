@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TfsMigrationUtility.UI"
         mc:Ignorable="d"
-        Title="TFS Migration Utility" MinHeight="400" Height="400" MinWidth="600" Width="600">
+        Title="TFS Migration Utility - Configuration" MinHeight="400" Height="400" MinWidth="600" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
@@ -13,15 +13,106 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
-        <Grid Background="LightGray" >
+        <Grid Background="#008ACC">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+
+            </Grid.ColumnDefinitions>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBlock Margin="10 0 5 0" FontSize="20" FontWeight="Bold" TextDecorations="underline">
+                <TextBlock Foreground="White" Margin="10 0 5 0" FontSize="20" FontWeight="Bold">
                     TFS Migration Utility
                 </TextBlock>
-                <TextBlock Text="{Binding AppVersion, Mode=OneWay}"></TextBlock>
+                <TextBlock Foreground="Wheat" Text="{Binding AppVersion, Mode=OneWay}"></TextBlock>
             </StackPanel>
+           
         </Grid>
         <Rectangle Grid.Row="1" Fill="Black"/>
-        <Grid Grid.Row="2"></Grid>
+        <ScrollViewer Grid.Row="2">
+            <Grid DataContext="{Binding ConfigVM}" Margin="0 0 5 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <!--Row 1-->
+            <Grid>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">1</TextBlock>
+            </Grid>
+            <TextBlock Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center" TextWrapping="WrapWithOverflow">Do you want to migrate just 1 project?</TextBlock>
+            <CheckBox IsChecked="{Binding MigrateSingleProject.Value}" Grid.Column="2" VerticalAlignment="Center"/>
+            <!--Row 2-->
+            <Grid Grid.Row="1">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">2</TextBlock>
+            </Grid>
+            <TextBlock Grid.Row="1" Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center" TextWrapping="WrapWithOverflow">Select a Source collection and project(s)</TextBlock>
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock VerticalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{Binding SourceTFSName}" FontWeight="Light"></TextBlock>
+                <Button  Height="30" Grid.Column="2" Grid.Row="1" Command="{Binding OnSelectCollection}" CommandParameter="source">Select Collection</Button>
+            </Grid>
+            <!--Row 3-->
+            <Expander HorizontalAlignment="Left" Grid.Row="2"  Grid.Column="2" MaxWidth="400" Header="View selected Projects">
+                <Expander.Content>
+                    <ListBox ItemsSource="{Binding Projects.Value}"></ListBox>
+                </Expander.Content>
+            </Expander>
+            <!--Row 4-->
+            <Grid Grid.Row="3">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">3</TextBlock>
+            </Grid>
+            <TextBlock Grid.Row="3" Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center">Select a Target Collection:</TextBlock>
+            <Grid Grid.Row="3" Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock VerticalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{Binding TargetTFSName}" FontWeight="Light"></TextBlock>
+                <Button  Height="30" Grid.Column="2" Grid.Row="1" Command="{Binding OnSelectCollection}" CommandParameter="target">Select Collection</Button>
+            </Grid>
+            <!--Row 5-->
+            <Grid Grid.Row="4">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">4</TextBlock>
+            </Grid>
+            <TextBlock Grid.Row="4" Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center">Options:</TextBlock>
+            <CheckBox Grid.Row="4" IsChecked="{Binding DebugMode.Value}" Grid.Column="2" VerticalAlignment="Center" Content="Debug mode"/>
+            <CheckBox Grid.Row="5" IsChecked="{Binding CleanupLocal.Value}" Grid.Column="2" VerticalAlignment="Center" Content="Clean-up local workspace before and after migration"/>
+            <CheckBox IsEnabled="False" Grid.Row="6" IsChecked="{Binding AutocreateProject.Value}" Grid.Column="2" VerticalAlignment="Center" Content="Automaticly create projects on the target collection"/>
+            <!--Row 6-->
+           
+            <!--Row 7-->
+
+
+        </Grid>
+        </ScrollViewer>
+        <Grid Grid.Row="3" Background="#E4E4E4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Command="{Binding ConfigVM.OnStart }">
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="25"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center">Migrate</TextBlock>
+                        <Image Width="20" Grid.Column="1" Source="Resources/arrow_forward.png"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+        </Grid>
     </Grid>
 </Window>

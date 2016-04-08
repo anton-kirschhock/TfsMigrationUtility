@@ -1,0 +1,42 @@
+﻿<Window x:Class="TfsMigrationUtility.UI.View.MigrateWindows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TfsMigrationUtility.UI.View"
+        mc:Ignorable="d"
+        Title="TFS Migration Utility - Migration Status" MinHeight="400" Height="400" MinWidth="600" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="#008ACC">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+
+            </Grid.ColumnDefinitions>
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <Button Background="Transparent">
+                    <Button.Content>
+                        <Grid  Width="30" Height="30">
+                            <Ellipse Stroke="White" StrokeThickness="2"></Ellipse>
+                            <Image Width="20" Source="../Resources/w_arrow_back.png"/>
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <TextBlock Foreground="White" Margin="10 0 5 0" FontSize="20" FontWeight="Bold" VerticalAlignment="Center">
+                    TFS Migration Utility
+                </TextBlock>
+                <TextBlock Foreground="White" Margin="0 0 5 0" FontSize="15" VerticalAlignment="Center">
+                    - Migration status
+                </TextBlock>
+                <TextBlock Foreground="White" FontSize="15" VerticalAlignment="Center" FontWeight="Light">
+                    STATUSHERE
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+        <Rectangle Grid.Row="1" Fill="Black"/>
+    </Grid>
+</Window>

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TfsMigrationUtility.UI.ViewModels.Nested;
 
 namespace TfsMigrationUtility.UI.ViewModels
 {
@@ -20,6 +21,7 @@ namespace TfsMigrationUtility.UI.ViewModels
                 return "v" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             }
         }
+        public MainWindowConfigurationViewModel ConfigVM { get; private set; }
 //CTOR
         public MainWindowViewModel(UIManager uimanager):base(uimanager){
             LoadViewModel();
@@ -30,6 +32,7 @@ namespace TfsMigrationUtility.UI.ViewModels
         {
             //Prepare stuff here
             //base.LoadViewModel();
+            this.ConfigVM = new MainWindowConfigurationViewModel(this, "ConfigVM");
         }
     }
 }

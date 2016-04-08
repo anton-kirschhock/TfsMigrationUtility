@@ -10,15 +10,15 @@ using TfsMigrationUtility.Core;
 
 namespace TfsMigrationUtility.UI.ViewModels.Nested
 {
-    public class MainViewConfigurationViewModel : AbstractNestedViewModel
+    public class MainWindowConfigurationViewModel : AbstractNestedViewModel
     {
         public ICell<bool> MigrateSingleProject { get; set; }
         public ICell<bool> DebugMode { get; set; }
         public ICell<bool> CleanupLocal { get; set; }
         public ICell<bool> AutocreateProject { get; set; }
         public ICell<string[]> Projects { get; set; }
-        public ICell<TfsTeamProjectCollection> SourceTFS {get;set;}
-        public ICell<TfsTeamProjectCollection> TargetTFS {get;set;}
+        public ICell<TfsTeamProjectCollection> SourceTFS { get; set; }
+        public ICell<TfsTeamProjectCollection> TargetTFS { get; set; }
 
         public string SourceTFSName
         {
@@ -37,14 +37,26 @@ namespace TfsMigrationUtility.UI.ViewModels.Nested
         }
 
 
-        public MainViewConfigurationViewModel(IViewModel Parent,string propertyName):base(Parent,propertyName){
+        public MainWindowConfigurationViewModel(IViewModel Parent, string propertyName) : base(Parent, propertyName)
+        {
             MigrateSingleProject = new Cell<bool>(true, this, nameof(MigrateSingleProject));
             DebugMode = new Cell<bool>(true, this, nameof(DebugMode));
             CleanupLocal = new Cell<bool>(false, this, nameof(CleanupLocal));
-            AutocreateProject = new Cell<bool>(false,this, nameof(AutocreateProject));
+            AutocreateProject = new Cell<bool>(false, this, nameof(AutocreateProject));
             Projects = new Cell<string[]>(new string[1], this, nameof(Projects));
             SourceTFS = new Cell<TfsTeamProjectCollection>(null, this, nameof(SourceTFSName));
             TargetTFS = new Cell<TfsTeamProjectCollection>(null, this, nameof(TargetTFSName));
+        }
+
+        public ICommand OnStart
+        {
+            get
+            {
+                return new RelayCommand(_ => {
+                    //Relay data to other view
+                },_=>Projects.HasValue() && SourceTFS.HasValue() && TargetTFS.HasValue());
+            }
+
         }
 
         public ICommand OnSelectCollection
@@ -55,16 +67,24 @@ namespace TfsMigrationUtility.UI.ViewModels.Nested
                     sender =>
                     {
                         //mode = multipleproject if source, collection if target
-                        //Show dialog
-                        
-                        if(sender as string == "source")
+                        TeamProjectPickerMode mode = (sender as string == "source" ?
+                        (this.MigrateSingleProject.Value ?
+                            TeamProjectPickerMode.SingleProject
+                            : TeamProjectPickerMode.MultiProject)
+                        : TeamProjectPickerMode.NoProject);
+                        TeamProjectPicker picker = new TeamProjectPicker(mode, false);
+                        if (picker.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
-                            //set collection
-                            //set projects
-                        }else if(sender as string == "target")
-                        {
-                            //set collection 
-
+                            if (sender as string == "source")
+                            {
+                                this.SourceTFS.Value = picker.SelectedTeamProjectCollection;
+                                this.Projects.Value = picker.SelectedProjects.Select(a=>"$/" + a.Name).ToArray();
+                                //set projects
+                            }
+                            else if (sender as string == "target")
+                            {
+                                this.TargetTFS.Value = picker.SelectedTeamProjectCollection;
+                            }
                         }
                     }
                     );

@@ -19,20 +19,11 @@ namespace TfsMigrationUtility.UI.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// The Active UIManager. Can also be resolved via DependancyInjection
-        /// </summary>
-        public IUIManager Manager { get; private set; }
-
-        public AbstractViewModel(IUIManager manager)
-        {
-            Manager = manager;
-        }
-        /// <summary>
         /// Disposes the Viewmodel and calles the manager to close the view
         /// </summary>
-        public void Dispose()
+        public virtual void Dispose()
         {
-            Manager.CloseView(this);
+
         }
         /// <summary>
         /// Invokes the propertychanged and uses the CallerMemberName to trigger it
@@ -42,20 +33,36 @@ namespace TfsMigrationUtility.UI.ViewModels
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        /// <summary>
-        /// Loads additional properties and dependancies of this viewmodel. First load everything then call the base.LoadViewModel() to finish
-        /// </summary>
+
         public virtual void LoadViewModel()
         {
-            Manager.ShowView(this);
+
         }
     }
     public abstract class AbstractParentViewModel : AbstractViewModel, IParentViewModel
     {
-        public AbstractParentViewModel(UIManager UIManager) :base(UIManager) {}
         /// <summary>
         /// The View type of this ViewModel
         /// </summary>
         public abstract Views View { get; }
+
+        /// <summary>
+        /// The Active UIManager. Can also be resolved via DependancyInjection
+        /// </summary>
+        public IUIManager Manager { get; private set; }
+
+        public AbstractParentViewModel(IUIManager manager)
+        {
+            Manager = manager;
+        }
+        public override void Dispose()
+        {
+            Manager.CloseView(this);
+            base.Dispose();
+        }
+        public override void LoadViewModel()
+        {
+            Manager.ShowView(this);
+        }
     }
 }

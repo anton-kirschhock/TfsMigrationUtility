@@ -15,12 +15,12 @@ namespace TfsMigrationUtility.UI.ViewModels
 
     public interface IViewModel:INotifyPropertyChanged,IDisposable
     {
-        IUIManager Manager { get; }
         void InvokePropertyChanges([CallerMemberName]string name="");
         void LoadViewModel();
     }
     public interface IParentViewModel
     {
+        IUIManager Manager { get; }
         Views View { get; }
     }
 }
