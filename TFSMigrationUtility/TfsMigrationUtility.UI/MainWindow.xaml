@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TfsMigrationUtility.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="TFS Migration Utility" MinHeight="400" Height="400" MinWidth="600" Width="600">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid Background="LightGray" >
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Margin="10 0 5 0" FontSize="20" FontWeight="Bold" TextDecorations="underline">
+                    TFS Migration Utility
+                </TextBlock>
+                <TextBlock Text="{Binding AppVersion, Mode=OneWay}"></TextBlock>
+            </StackPanel>
+        </Grid>
+        <Rectangle Grid.Row="1" Fill="Black"/>
+        <Grid Grid.Row="2"></Grid>
     </Grid>
 </Window>

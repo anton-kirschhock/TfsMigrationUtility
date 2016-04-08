@@ -43,6 +43,7 @@ namespace TfsMigrationUtility.UI
                 IView view = ViewMapping[typeof(TViewModel)];
                 if (view == null) return true;
                 view.Close();//Releases the resources
+                ViewMapping[typeof(TViewModel)] = null;
                 ViewMapping.Remove(typeof(TViewModel));//remove it from the active mapping
             }
             return true;

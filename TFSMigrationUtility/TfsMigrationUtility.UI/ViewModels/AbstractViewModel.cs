@@ -21,13 +21,9 @@ namespace TfsMigrationUtility.UI.ViewModels
         /// <summary>
         /// The Active UIManager. Can also be resolved via DependancyInjection
         /// </summary>
-        public UIManager Manager{ get; private set; }
-        /// <summary>
-        /// The View type of this ViewModel
-        /// </summary>
-        public abstract Views View { get; }
+        public IUIManager Manager { get; private set; }
 
-        public AbstractViewModel(UIManager manager)
+        public AbstractViewModel(IUIManager manager)
         {
             Manager = manager;
         }
@@ -53,5 +49,13 @@ namespace TfsMigrationUtility.UI.ViewModels
         {
             Manager.ShowView(this);
         }
+    }
+    public abstract class AbstractParentViewModel : AbstractViewModel, IParentViewModel
+    {
+        public AbstractParentViewModel(UIManager UIManager) :base(UIManager) {}
+        /// <summary>
+        /// The View type of this ViewModel
+        /// </summary>
+        public abstract Views View { get; }
     }
 }

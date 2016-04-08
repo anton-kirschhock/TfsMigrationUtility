@@ -15,12 +15,16 @@ namespace TfsMigrationUtility.UI
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            MainWindow = ServiceLocator.Get<IUIManager>().GetStartupWindow() as Window;
+            ShutdownMode = ShutdownMode.OnMainWindowClose;
+        }
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
-            MainWindow = ServiceLocator.Get<IUIManager>().GetStartupWindow() as Window;
-
+            MainWindow.ShowDialog();
         }
+
     }
 }

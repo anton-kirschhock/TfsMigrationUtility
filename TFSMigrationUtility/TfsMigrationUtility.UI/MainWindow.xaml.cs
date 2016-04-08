@@ -22,6 +22,10 @@ namespace TfsMigrationUtility.UI
     /// </summary>
     public partial class MainWindow : Window, IView
     {
+        public MainWindow()
+        {
+            this.InitializeComponent();
+        }
         public IViewModel ViewModel
         {
             get
