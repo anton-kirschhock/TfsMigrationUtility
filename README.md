@@ -6,10 +6,10 @@ A free custom opensource utility to migrate a TFS project (or collection) from A
 - Migrate a project, including history, to another server and/or collection
 - Option to migrate the whole collection
 - Migration logic with abstraction
-- A console application
 - A WPF app
+- A console application
 - TFS Support: 2013, 2015, VSTS
-
+- Auto create projects option, if they don't exist
 # Collaboration
 
 This is still Work in progress...
