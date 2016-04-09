@@ -21,43 +21,43 @@ namespace TfsMigrationUtility.UI
         /// <summary>
         /// Contains a key,value pair of active windows and its ViewModels
         /// </summary>
-        private Dictionary<Type, IView> ViewMapping = new Dictionary<Type, IView>();
+        private Dictionary<string, IView> ViewMapping = new Dictionary<string, IView>();
         public bool ShowView<TViewModel>(TViewModel instance) where TViewModel : IViewModel,IParentViewModel
         {
             IView view = null;
-            if (!ViewMapping.ContainsKey(typeof(TViewModel)))
+            if (!ViewMapping.ContainsKey(instance.View.ToString()))
             {
                 view = ServiceLocator.Get<IView>(instance.View.ToString());//if there is none, get it 
                 if (view == null) return false;
-                ViewMapping.Add(typeof(TViewModel), view);
+                ViewMapping.Add(instance.View.ToString(), view);
             }
-            view = ViewMapping[typeof(TViewModel)];
+            view = ViewMapping[instance.View.ToString()];
             view.ViewModel = instance;
-            view.Show();
+            view.ShowView();
             return true;
         }
         public bool CloseView<TViewModel>(TViewModel instance) where TViewModel : IViewModel, IParentViewModel
         {
-            if (ViewMapping.ContainsKey(typeof(TViewModel)))
+            if (ViewMapping.ContainsKey(instance.View.ToString()))
             {
-                IView view = ViewMapping[typeof(TViewModel)];
+                IView view = ViewMapping[instance.View.ToString()];
                 if (view == null) return true;
                 view.Close();//Releases the resources
-                ViewMapping[typeof(TViewModel)] = null;
-                ViewMapping.Remove(typeof(TViewModel));//remove it from the active mapping
+                ViewMapping[instance.View.ToString()] = null;
+                ViewMapping.Remove(instance.View.ToString());//remove it from the active mapping
             }
             return true;
         }
         public IView GetStartupWindow()
         {
             IView view = null;
-            if (!ViewMapping.ContainsKey(typeof(MainWindowViewModel)))
+            if (!ViewMapping.ContainsKey(Views.MainWindow.ToString()))
             {
                 view = ServiceLocator.Get<IView>(Views.MainWindow.ToString());//if there is none, get it 
                 if (view == null) throw new Exception("Cannot locate the startup view!");
-                ViewMapping.Add(typeof(MainWindowViewModel), view);
+                ViewMapping.Add(Views.MainWindow.ToString(), view);
             }
-            view = ViewMapping[typeof(MainWindowViewModel)];
+            view = ViewMapping[Views.MainWindow.ToString()];
             IViewModel vm = GetViewModel(Views.MainWindow);
             view.ViewModel = vm;
             return view;

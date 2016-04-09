@@ -38,5 +38,10 @@ namespace TfsMigrationUtility.UI
                 this.DataContext = value;
             }
         }
+
+        public void ShowView()
+        {
+            Show();
+        }
     }
 }

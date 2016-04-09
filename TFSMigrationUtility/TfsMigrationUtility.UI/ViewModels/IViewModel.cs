@@ -10,7 +10,8 @@ namespace TfsMigrationUtility.UI.ViewModels
 {
     public enum Views
     {
-        MainWindow
+        MainWindow,
+        MigrateWindow
     };
 
     public interface IViewModel:INotifyPropertyChanged,IDisposable

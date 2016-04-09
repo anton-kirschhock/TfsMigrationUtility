@@ -9,7 +9,7 @@ namespace TfsMigrationUtility.UI.View
 {
     public interface IView
     {
-        void Show();
+        void ShowView();
         void Close();
         IViewModel ViewModel { get; set; }
     }

@@ -63,6 +63,16 @@ namespace TfsMigrationUtility.UI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arrow_back {
+            get {
+                object obj = ResourceManager.GetObject("arrow_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrow_forward {
             get {
                 object obj = ResourceManager.GetObject("arrow_forward", resourceCulture);
@@ -76,6 +86,16 @@ namespace TfsMigrationUtility.UI.Properties {
         internal static System.Drawing.Bitmap w_arrow_back {
             get {
                 object obj = ResourceManager.GetObject("w_arrow_back", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap w_arrow_forward {
+            get {
+                object obj = ResourceManager.GetObject("w_arrow_forward", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

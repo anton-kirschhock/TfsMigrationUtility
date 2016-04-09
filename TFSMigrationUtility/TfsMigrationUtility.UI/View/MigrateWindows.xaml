@@ -18,13 +18,35 @@
 
             </Grid.ColumnDefinitions>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                <Button Background="Transparent">
+                <Button Command="{Binding OnBack}" Margin="10 0 0 0" >
                     <Button.Content>
                         <Grid  Width="30" Height="30">
-                            <Ellipse Stroke="White" StrokeThickness="2"></Ellipse>
-                            <Image Width="20" Source="../Resources/w_arrow_back.png"/>
+                            <Ellipse StrokeThickness="2"></Ellipse>
+                            <Image Width="20"/>
                         </Grid>
                     </Button.Content>
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Style>
+                        <Style TargetType="{x:Type Ellipse}">
+                            <Setter Property="Stroke" Value="White"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                                    <Setter Property="Stroke" Value="Black" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="../Resources/w_arrow_back.png"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                                    <Setter Property="Source" Value="../Resources/arrow_back.png"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
                 </Button>
                 <TextBlock Foreground="White" Margin="10 0 5 0" FontSize="20" FontWeight="Bold" VerticalAlignment="Center">
                     TFS Migration Utility

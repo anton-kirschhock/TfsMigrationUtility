@@ -11,12 +11,12 @@
             <RowDefinition Height="75"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="3*"/>
+            <RowDefinition Height="1"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Grid Background="#008ACC">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-
             </Grid.ColumnDefinitions>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Foreground="White" Margin="10 0 5 0" FontSize="20" FontWeight="Bold">
@@ -24,9 +24,40 @@
                 </TextBlock>
                 <TextBlock Foreground="Wheat" Text="{Binding AppVersion, Mode=OneWay}"></TextBlock>
             </StackPanel>
-           
+            <Button Command="{Binding ConfigVM.OnStart}" Margin="0 0 10 0" HorizontalAlignment="Right" Background="Transparent" VerticalAlignment="Center">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                    <Style TargetType="{x:Type Ellipse}">
+                        <Setter Property="Stroke" Value="White"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                                <Setter Property="Stroke" Value="Black" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Source" Value="Resources/w_arrow_forward.png"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                                <Setter Property="Source" Value="Resources/arrow_forward.png"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Resources>
+                <Button.Content>
+                    <Grid Width="30" Height="30">
+                        <Ellipse StrokeThickness="2"></Ellipse>
+                        <Image Width="20"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
         </Grid>
         <Rectangle Grid.Row="1" Fill="Black"/>
+        <Rectangle Grid.Row="3" Fill="Black"/>
         <ScrollViewer Grid.Row="2">
             <Grid DataContext="{Binding ConfigVM}" Margin="0 0 5 0">
             <Grid.ColumnDefinitions>
@@ -96,7 +127,7 @@
 
         </Grid>
         </ScrollViewer>
-        <Grid Grid.Row="3" Background="#E4E4E4">
+        <Grid Grid.Row="4" Background="#E4E4E4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="100"/>

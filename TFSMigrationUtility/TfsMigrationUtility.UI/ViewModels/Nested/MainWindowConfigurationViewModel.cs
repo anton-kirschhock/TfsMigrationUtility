@@ -54,7 +54,8 @@ namespace TfsMigrationUtility.UI.ViewModels.Nested
             {
                 return new RelayCommand(_ => {
                     //Relay data to other view
-                },_=>Projects.HasValue() && SourceTFS.HasValue() && TargetTFS.HasValue());
+                    IViewModel vm = ServiceLocator.Get<IUIManager>().GetViewModel(Views.MigrateWindow);
+                });//,_=>Projects.HasValue() && SourceTFS.HasValue() && TargetTFS.HasValue());
             }
 
         }

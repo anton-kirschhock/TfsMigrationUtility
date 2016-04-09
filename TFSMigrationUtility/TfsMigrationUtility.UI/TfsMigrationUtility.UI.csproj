@@ -249,6 +249,7 @@
     <Compile Include="ViewModels\ICell.cs" />
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MigrateWindowViewModel.cs" />
     <Compile Include="ViewModels\Nested\MainWindowConfigurationViewModel.cs" />
     <Compile Include="View\AbstractView.cs" />
     <Compile Include="View\IView.cs" />
@@ -317,6 +318,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\w_arrow_back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\arrow_back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\w_arrow_forward.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

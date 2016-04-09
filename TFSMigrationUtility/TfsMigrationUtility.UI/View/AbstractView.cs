@@ -8,20 +8,20 @@ using TfsMigrationUtility.UI.ViewModels;
 
 namespace TfsMigrationUtility.UI.View
 {
-    public class AbstractView : Window, IView
-    {
-        public IViewModel ViewModel
-        {
-            get
-            {
-                return this.DataContext as IViewModel;
-            }
+    //public abstract class AbstractView : Window, IView
+    //{
+    //    public IViewModel ViewModel
+    //    {
+    //        get
+    //        {
+    //            return this.DataContext as IViewModel;
+    //        }
 
-            set
-            {
-                this.DataContext = value;
-            }
-        }
+    //        set
+    //        {
+    //            this.DataContext = value;
+    //        }
+    //    }
 
-    }
+    //}
 }
