@@ -10,7 +10,7 @@ using TfsMigrationUtility.Core;
 
 namespace TfsMigrationUtility.UI.ViewModels.Nested
 {
-    public class MainWindowConfigurationViewModel : AbstractNestedViewModel
+    public class MainWindowConfigurationViewModel : AbstractNestedViewModel, IConfigurationViewModel
     {
         public ICell<bool> MigrateSingleProject { get; set; }
         public ICell<bool> DebugMode { get; set; }

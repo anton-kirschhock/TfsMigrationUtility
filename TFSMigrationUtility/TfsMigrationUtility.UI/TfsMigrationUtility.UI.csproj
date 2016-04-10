@@ -250,6 +250,7 @@
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MigrateWindowViewModel.cs" />
+    <Compile Include="ViewModels\Nested\IConfigurationViewModel.cs" />
     <Compile Include="ViewModels\Nested\MainWindowConfigurationViewModel.cs" />
     <Compile Include="View\AbstractView.cs" />
     <Compile Include="View\IView.cs" />
