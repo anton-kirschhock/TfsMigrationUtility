@@ -31,7 +31,10 @@ namespace TfsMigrationUtility.UI
                 view = ServiceLocator.Get<IViewFactory>(instance.View.ToString()).BuildNewView();//if there is none, get it 
                 if (view == null) return false;
                 ViewMapping.Add(instance.View.ToString(), view);
-            
+                view.Closed += (a, e) =>
+                {
+                    CloseView(instance);
+                };
                 view = ViewMapping[instance.View.ToString()];
                 view.ViewModel = instance;
                 view.ShowView();

@@ -42,8 +42,8 @@ namespace TfsMigrationUtility.UI.Workers
                 config.LocalPath = Path.Combine(baseLocalPath, project);
                 progressindicator.WriteDebug($"Migrating project {config.SourceProject} with local workspace {config.LocalPath}...");
                 progressindicator.CurrentStatus.Value = $"Migrating {project}";
-                //await Task.Delay(2000);//Simulate workload
-                var b = await handler.Migrate(config);
+                await Task.Delay(2000);//Simulate workload
+                var b = true; // await handler.Migrate(config);
                 if (b)
                 {
                     progressindicator.Info.AppendLine($"SUCCESS: '{project}' migrated successfully");

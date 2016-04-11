@@ -12,5 +12,6 @@ namespace TfsMigrationUtility.UI.View
         void ShowView();
         void Close();
         IViewModel ViewModel { get; set; }
+        event EventHandler Closed;
     }
 }

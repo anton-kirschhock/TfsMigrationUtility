@@ -41,7 +41,9 @@ namespace TfsMigrationUtility.UI.View
         public void ShowView()
         {
             Show();
+           
         }
+        
     }
 }
 

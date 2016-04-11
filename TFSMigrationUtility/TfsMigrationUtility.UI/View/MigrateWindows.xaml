@@ -76,9 +76,11 @@
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="1"/>
                 <RowDefinition Height="35"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*" MinHeight="100"/>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="1*" MinHeight="25"/>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="1*" MinHeight="25"/>
             </Grid.RowDefinitions>
             <ProgressBar Grid.Row="0" Maximum="{Binding ProgressViewModel.UpperMaxStep.Value}"  Value="{Binding ProgressViewModel.UpperCurrentStep.Value}"/>
             <Rectangle Grid.Row="1" Fill="Black"/>
@@ -90,13 +92,15 @@
                     </Style>
                 </custom:BindableRichTextBox.Resources>
             </custom:BindableRichTextBox>
-            <Expander Grid.Row="4" Header="Debug information" Visibility="{Binding ConfigVM.DebugMode.Value,Converter={StaticResource BoolToVisibility}}">
+            <GridSplitter Background="#a0a0a0" Grid.Row="4" ResizeDirection="Rows" HorizontalAlignment="Stretch"/>
+            <Expander Grid.Row="5" Header="Debug information" Visibility="{Binding ConfigVM.DebugMode.Value,Converter={StaticResource BoolToVisibility}}">
                 <TextBox IsReadOnly="True" Text="{Binding ProgressViewModel.Debug.Value}" AcceptsReturn="True" AcceptsTab="True" TextWrapping="WrapWithOverflow"/>
             </Expander>
+            <GridSplitter Background="#a0a0a0" HorizontalAlignment="Stretch" Grid.Row="6" Visibility="{Binding ConfigVM.DebugMode.Value,Converter={StaticResource BoolToVisibility}}" ResizeDirection="Rows"/>
             <Expander Header="Error's">
                 <Expander.Style>
                     <Style TargetType="{x:Type Expander}">
-                        <Setter Property="Grid.Row" Value="5"/>
+                        <Setter Property="Grid.Row" Value="7"/>
                         <Setter Property="Grid.RowSpan" Value="1"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ConfigVM.DebugMode.Value}" Value="false">
