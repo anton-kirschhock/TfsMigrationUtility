@@ -33,7 +33,7 @@ namespace TfsMigrationUtility.UI.Workers
                 TargetProjectCollection = uiconfig.TargetTFS.Value,
                 AutoCreateProject = uiconfig.AutocreateProject.Value
             };
-
+            int passes = 0;
             foreach (var project in uiconfig.Projects.Value)
             {
                 progressindicator.CurrentStatus.Value = $"Preparing migration for {project}";
@@ -47,13 +47,14 @@ namespace TfsMigrationUtility.UI.Workers
                 if (b)
                 {
                     progressindicator.Info.AppendLine($"SUCCESS: '{project}' migrated successfully");
+                    passes++;
                 }
                 else {
                     progressindicator.Info.AppendLine($"WARNING: '{project}' FAILED MIGRATING (see Exception log)");
                 }
                 progressindicator.UpperCurrentStep.Value++;
             }
-            progressindicator.CurrentStatus.Value = $"Done Migrating!";
+            progressindicator.CurrentStatus.Value = $"Done Migrating! {passes}/{uiconfig.Projects.Value.Length} passed.";
             IsRunning = false;
             return true;
         }

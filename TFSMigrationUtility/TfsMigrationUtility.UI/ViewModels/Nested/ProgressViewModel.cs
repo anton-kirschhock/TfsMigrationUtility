@@ -79,7 +79,7 @@ namespace TfsMigrationUtility.UI.ViewModels.Nested
 
         public void WriteException(string message, Exception ex)
         {
-            Debug.AppendLine($"[ERR @ {DateTime.Now}]>> {message}Exception:\n{ex.ToString()}");
+            Exception.AppendLine($"[ERR @ {DateTime.Now}]>> {message}Exception:\n{ex.ToString()}");
         }
 
     }

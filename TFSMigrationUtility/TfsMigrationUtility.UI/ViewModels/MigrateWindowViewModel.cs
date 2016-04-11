@@ -51,7 +51,6 @@ namespace TfsMigrationUtility.UI.ViewModels
             Worker = new MigrationWorker();
             ProgressViewModel = new ProgressViewModel(this, nameof(ProgressViewModel));
             ServiceLocator.Set<IProgress>(ProgressViewModel);
-            base.LoadViewModel();
         }
 
         public void LoadConfig(IConfigurationViewModel config)
@@ -59,6 +58,7 @@ namespace TfsMigrationUtility.UI.ViewModels
             ConfigVM = config;
             
             Task.Run(()=>this.Worker.Start(config, this.ProgressViewModel));//start the worker async, so the UI stays untouched
+            Manager.ShowView(this);
         }
 
     }

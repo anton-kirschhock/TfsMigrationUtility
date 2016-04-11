@@ -82,6 +82,11 @@ namespace TfsMigrationUtility.Core.Migrations
                 ProgressManager.WriteException($"{configex.PropertyName}=>{configex.Message}", configex);
                 res = false;
             }
+            catch(ChangeTypeHandlerException cthe)
+            {
+                ProgressManager.WriteException($"{cthe.ItemType},{cthe.ChangeType}=>{cthe.Message}", cthe);
+                res = false;
+            }
             catch(Exception e){
                 ProgressManager.WriteException($"{e.Message}", e);
                 res = false;
@@ -119,7 +124,7 @@ namespace TfsMigrationUtility.Core.Migrations
                 var changesets = sourceServer.QueryHistory(config.SourceProject, RecursionType.Full, Int32.MaxValue);
                 int changesetcount = changesets.Count();
                 ProgressManager.InvokeProgress(0, changesetcount, $"{changesetcount} changesets available");
-                foreach (Changeset changeset in changesets) 
+                foreach (Changeset changeset in changesets.OrderBy(a=>a.CreationDate)) 
                 {
                     ProgressManager.InvokeProgress($"Migrating changeset with ID {changeset.ChangesetId}", false);
                     string newcomment = changeset.Comment;

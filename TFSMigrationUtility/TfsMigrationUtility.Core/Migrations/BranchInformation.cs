@@ -56,7 +56,7 @@ namespace TfsMigrationUtility.Core.Migrations
                 {
                     BranchInformation branchinfo = new BranchInformation(
                         branch.Properties.RootItem.Item,
-                        (branch.Properties.ParentBranch != null ? 
+                        (branch.Properties.ParentBranch == null ? 
                             null : 
                             branch.Properties.ParentBranch.Item)
                     );

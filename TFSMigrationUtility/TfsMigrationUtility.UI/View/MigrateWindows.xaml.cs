@@ -40,7 +40,7 @@ namespace TfsMigrationUtility.UI.View
 
         public void ShowView()
         {
-            Task.Run(() => this.ShowDialog());
+            ShowDialog();
         }
     }
 }
