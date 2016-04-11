@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using TfsMigrationUtility.Core;
 
@@ -19,6 +20,7 @@ namespace TfsMigrationUtility.UI.ViewModels.Nested
         public ICell<string[]> Projects { get; set; }
         public ICell<TfsTeamProjectCollection> SourceTFS { get; set; }
         public ICell<TfsTeamProjectCollection> TargetTFS { get; set; }
+        public StringCell LocalPath { get; set; }
 
         public string SourceTFSName
         {
@@ -46,6 +48,23 @@ namespace TfsMigrationUtility.UI.ViewModels.Nested
             Projects = new Cell<string[]>(new string[1], this, nameof(Projects));
             SourceTFS = new Cell<TfsTeamProjectCollection>(null, this, nameof(SourceTFSName));
             TargetTFS = new Cell<TfsTeamProjectCollection>(null, this, nameof(TargetTFSName));
+            LocalPath = new StringCell(this, nameof(LocalPath));
+        }
+
+        public ICommand OnSelectLocalDir
+        {
+            get
+            {
+                return new RelayCommand(_ =>
+                {
+                    FolderBrowserDialog dialog = new FolderBrowserDialog();
+                    dialog.Description = "Select a directory as a working directory";
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        this.LocalPath.Value = dialog.SelectedPath;
+                    }
+                });
+            }
         }
 
         public ICommand OnStart
@@ -55,7 +74,9 @@ namespace TfsMigrationUtility.UI.ViewModels.Nested
                 return new RelayCommand(_ => {
                     //Relay data to other view
                     IViewModel vm = ServiceLocator.Get<IUIManager>().GetViewModel(Views.MigrateWindow);
-                });//,_=>Projects.HasValue() && SourceTFS.HasValue() && TargetTFS.HasValue());
+                    (vm as MigrateWindowViewModel).LoadConfig(this);
+                }//);
+                ,_=>Projects.HasValue() && SourceTFS.HasValue() && TargetTFS.HasValue());
             }
 
         }
@@ -79,7 +100,7 @@ namespace TfsMigrationUtility.UI.ViewModels.Nested
                             if (sender as string == "source")
                             {
                                 this.SourceTFS.Value = picker.SelectedTeamProjectCollection;
-                                this.Projects.Value = picker.SelectedProjects.Select(a=>"$/" + a.Name).ToArray();
+                                this.Projects.Value = picker.SelectedProjects.Select(a=>a.Name).ToArray();
                                 //set projects
                             }
                             else if (sender as string == "target")

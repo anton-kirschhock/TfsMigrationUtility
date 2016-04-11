@@ -4,8 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TfsMigrationUtility.UI.View"
+        xmlns:custom="clr-namespace:TfsMigrationUtility.UI.View.Controls"
+        xmlns:converters="clr-namespace:TfsMigrationUtility.UI.Converters"
         mc:Ignorable="d"
         Title="TFS Migration Utility - Migration Status" MinHeight="400" Height="400" MinWidth="600" Width="600">
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
+        <converters:StringToRTFConverter x:Key="StringToRTF"/>
+    </Window.Resources>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo Description="{Binding ProgressViewModel.CurrentStatus.Value}" 
+                         ProgressState="Normal" 
+                         ProgressValue="{Binding ProgressViewModel.UpperStepPercent}"
+        />
+    </Window.TaskbarItemInfo>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
@@ -17,7 +29,7 @@
                 <ColumnDefinition Width="1*"/>
 
             </Grid.ColumnDefinitions>
-            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,21">
                 <Button Command="{Binding OnBack}" Margin="10 0 0 0" >
                     <Button.Content>
                         <Grid  Width="30" Height="30">
@@ -54,8 +66,7 @@
                 <TextBlock Foreground="White" Margin="0 0 5 0" FontSize="15" VerticalAlignment="Center">
                     - Migration status
                 </TextBlock>
-                <TextBlock Foreground="White" FontSize="15" VerticalAlignment="Center" FontWeight="Light">
-                    STATUSHERE
+                <TextBlock Foreground="White" FontSize="15" VerticalAlignment="Center" FontWeight="Light" Text="{Binding ProgressViewModel.CurrentStatus.Value}">
                 </TextBlock>
             </StackPanel>
         </Grid>
@@ -63,13 +74,35 @@
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"/>
-                <RowDefinition Height="45"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <ProgressBar Grid.Row="0"/>
-            <ProgressBar Grid.Row="1"/>
+            <ProgressBar Grid.Row="0" Maximum="{Binding ProgressViewModel.UpperMaxStep.Value}"  Value="{Binding ProgressViewModel.UpperCurrentStep.Value}"/>
+            <Rectangle Grid.Row="1" Fill="Black"/>
+            <ProgressBar Grid.Row="2" Maximum="{Binding ProgressViewModel.LowerMaxStep.Value}" Value="{Binding ProgressViewModel.LowerCurrentStep.Value}"/>
+            <custom:BindableRichTextBox IsReadOnly="True" Grid.Row="3" Document="{Binding ProgressViewModel.Info.Value,Converter={StaticResource StringToRTF}}" AcceptsReturn="True" AcceptsTab="True"/>
+            <Expander Grid.Row="4" Header="Debug information" Visibility="{Binding ConfigVM.DebugMode.Value,Converter={StaticResource BoolToVisibility}}">
+                <TextBox IsReadOnly="True" Text="{Binding ProgressViewModel.Debug.Value}" AcceptsReturn="True" AcceptsTab="True" TextWrapping="WrapWithOverflow"/>
+            </Expander>
+            <Expander Header="Error's">
+                <Expander.Style>
+                    <Style TargetType="{x:Type Expander}">
+                        <Setter Property="Grid.Row" Value="5"/>
+                        <Setter Property="Grid.RowSpan" Value="1"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ConfigVM.DebugMode.Value}" Value="false">
+                                <Setter Property="Grid.Row" Value="4"/>
+                                <Setter Property="Grid.RowSpan" Value="2"/>
+                            </DataTrigger>
+                        </Style.Triggers> 
+                    </Style>
+                </Expander.Style>
+                <TextBox IsReadOnly="True" Foreground="Red" Text="{Binding ProgressViewModel.Exception.Value}" AcceptsReturn="True" AcceptsTab="True" TextWrapping="WrapWithOverflow"/>
+            </Expander>
+
         </Grid>
     </Grid>
 </Window>

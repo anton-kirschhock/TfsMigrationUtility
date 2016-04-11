@@ -22,12 +22,16 @@ namespace TfsMigrationUtility.Core
         {
             return _container.Resolve<TProxyType>();
         }
+        public static IEnumerable<TProxyType> GetAll<TProxyType>()
+        {
+            return _container.ResolveAll<TProxyType>();
+        }
         public static TProxyType Get<TProxyType>(string key)
         {
             return _container.Resolve<TProxyType>(key);
         }
 
-        public static void Add<TProxyType>(TProxyType implementation)
+        public static void Set<TProxyType>(TProxyType implementation)
         {
             _container.RegisterInstance<TProxyType>(implementation);
         }

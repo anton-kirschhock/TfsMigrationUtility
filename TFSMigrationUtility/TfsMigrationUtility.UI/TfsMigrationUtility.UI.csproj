@@ -241,6 +241,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\StringToRTFConverter.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="UIBootstrap.cs" />
     <Compile Include="UIManager.cs" />
@@ -252,11 +254,14 @@
     <Compile Include="ViewModels\MigrateWindowViewModel.cs" />
     <Compile Include="ViewModels\Nested\IConfigurationViewModel.cs" />
     <Compile Include="ViewModels\Nested\MainWindowConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\Nested\ProgressViewModel.cs" />
     <Compile Include="View\AbstractView.cs" />
+    <Compile Include="View\Controls\BindableRichTextBox.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="View\MigrateWindows.xaml.cs">
       <DependentUpon>MigrateWindows.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Workers\MigrationWorker.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -309,9 +314,7 @@
       <Name>TfsMigrationUtility.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\arrow_forward.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

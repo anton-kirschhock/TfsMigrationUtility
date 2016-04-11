@@ -23,8 +23,9 @@ namespace TfsMigrationUtility.Core.Migrations
         {
             this.ProgressManager = ServiceLocator.Get<IProgressManager>();
         }
-        public async Task Migrate(MigrationConfig config)
+        public async Task<bool> Migrate(MigrationConfig config)
         {
+            bool res = true;
             try {
                 IsRunning = true;
                 ProgressManager.InvokeProgress(0, 5, "Validating configuration...");
@@ -70,15 +71,20 @@ namespace TfsMigrationUtility.Core.Migrations
                         .ToDictionary(a => a, a => false);
                 ProgressManager.InvokeProgress($"Found {branchInformation.Count()} branches in total!");
                 await MigrateWorker(config, sourceServer,targetServer, branchInformation, targetWorkspace, workspacehandler);
+                
             }
             catch(ProjectNotFoundException pnfe)
             {
                 ProgressManager.WriteException($"{pnfe.Message}", pnfe);
+                res = false;
             }
             catch(InvalidConfigurationException configex) {
                 ProgressManager.WriteException($"{configex.PropertyName}=>{configex.Message}", configex);
-            }catch(Exception e){
+                res = false;
+            }
+            catch(Exception e){
                 ProgressManager.WriteException($"{e.Message}", e);
+                res = false;
             }
             //Cleanup:
             if (config.AutoCleanLocalPath)
@@ -98,10 +104,11 @@ namespace TfsMigrationUtility.Core.Migrations
                     ProgressManager.WriteException($"Something happend while cleaning the local path: {e.Message}", e);
                 }
             }
-            IsRunning = true;
+            IsRunning = false;
+            return res;
         }
 
-        public async Task MigrateWorker(MigrationConfig config,
+        private async Task MigrateWorker(MigrationConfig config,
             VersionControlServer sourceServer,
             VersionControlServer targetServer,
             Dictionary<BranchInformation, bool> branchInformation,

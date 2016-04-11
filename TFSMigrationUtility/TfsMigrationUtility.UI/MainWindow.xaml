@@ -60,72 +60,85 @@
         <Rectangle Grid.Row="3" Fill="Black"/>
         <ScrollViewer Grid.Row="2">
             <Grid DataContext="{Binding ConfigVM}" Margin="0 0 5 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <!--Row 1-->
-            <Grid>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">1</TextBlock>
-            </Grid>
-            <TextBlock Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center" TextWrapping="WrapWithOverflow">Do you want to migrate just 1 project?</TextBlock>
-            <CheckBox IsChecked="{Binding MigrateSingleProject.Value}" Grid.Column="2" VerticalAlignment="Center"/>
-            <!--Row 2-->
-            <Grid Grid.Row="1">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">2</TextBlock>
-            </Grid>
-            <TextBlock Grid.Row="1" Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center" TextWrapping="WrapWithOverflow">Select a Source collection and project(s)</TextBlock>
-            <Grid Grid.Row="1" Grid.Column="2">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock VerticalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{Binding SourceTFSName}" FontWeight="Light"></TextBlock>
-                <Button  Height="30" Grid.Column="2" Grid.Row="1" Command="{Binding OnSelectCollection}" CommandParameter="source">Select Collection</Button>
-            </Grid>
-            <!--Row 3-->
-            <Expander HorizontalAlignment="Left" Grid.Row="2"  Grid.Column="2" MaxWidth="400" Header="View selected Projects">
-                <Expander.Content>
-                    <ListBox ItemsSource="{Binding Projects.Value}"></ListBox>
-                </Expander.Content>
-            </Expander>
-            <!--Row 4-->
-            <Grid Grid.Row="3">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">3</TextBlock>
-            </Grid>
-            <TextBlock Grid.Row="3" Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center">Select a Target Collection:</TextBlock>
-            <Grid Grid.Row="3" Grid.Column="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="150"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock VerticalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{Binding TargetTFSName}" FontWeight="Light"></TextBlock>
-                <Button  Height="30" Grid.Column="2" Grid.Row="1" Command="{Binding OnSelectCollection}" CommandParameter="target">Select Collection</Button>
-            </Grid>
-            <!--Row 5-->
-            <Grid Grid.Row="4">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">4</TextBlock>
-            </Grid>
-            <TextBlock Grid.Row="4" Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center">Options:</TextBlock>
-            <CheckBox Grid.Row="4" IsChecked="{Binding DebugMode.Value}" Grid.Column="2" VerticalAlignment="Center" Content="Debug mode"/>
-            <CheckBox Grid.Row="5" IsChecked="{Binding CleanupLocal.Value}" Grid.Column="2" VerticalAlignment="Center" Content="Clean-up local workspace before and after migration"/>
-            <CheckBox IsEnabled="False" Grid.Row="6" IsChecked="{Binding AutocreateProject.Value}" Grid.Column="2" VerticalAlignment="Center" Content="Automaticly create projects on the target collection"/>
-            <!--Row 6-->
-           
-            <!--Row 7-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <!--Row 1-->
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">1</TextBlock>
+                </Grid>
+                <TextBlock Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center" TextWrapping="WrapWithOverflow">Do you want to migrate just 1 project?</TextBlock>
+                <CheckBox IsChecked="{Binding MigrateSingleProject.Value}" Grid.Column="2" VerticalAlignment="Center"/>
+                <!--Row 2-->
+                <Grid Grid.Row="1">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">2</TextBlock>
+                </Grid>
+                <TextBlock Grid.Row="1" Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center" TextWrapping="WrapWithOverflow">Select a Source collection and project(s)</TextBlock>
+                <Grid Grid.Row="1" Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{Binding SourceTFSName}" FontWeight="Light"></TextBlock>
+                    <Button  Height="30" Grid.Column="2" Grid.Row="1" Command="{Binding OnSelectCollection}" CommandParameter="source">Select Collection</Button>
+                </Grid>
+                <!--Row 3-->
+                <Expander HorizontalAlignment="Left" Grid.Row="2"  Grid.Column="2" MaxWidth="400" Header="View selected Projects">
+                    <Expander.Content>
+                        <ListBox ItemsSource="{Binding Projects.Value}"></ListBox>
+                    </Expander.Content>
+                </Expander>
+                <!--Row 4-->
+                <Grid Grid.Row="3">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">3</TextBlock>
+                </Grid>
+                <TextBlock Grid.Row="3" Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center">Select a Target Collection:</TextBlock>
+                <Grid Grid.Row="3" Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center" TextWrapping="WrapWithOverflow" Text="{Binding TargetTFSName}" FontWeight="Light"></TextBlock>
+                    <Button  Height="30" Grid.Column="2" Grid.Row="1" Command="{Binding OnSelectCollection}" CommandParameter="target">Select Collection</Button>
+                </Grid>
+                <!--Row 5-->
+                <Grid Grid.Row="4">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">4</TextBlock>
+                </Grid>
+                <TextBlock Grid.Row="4" Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center" TextWrapping="WrapWithOverflow">Select the local working directory:</TextBlock>
+                <Grid Grid.Column="2" Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox VerticalAlignment="Center" Height="30" FontWeight="Light" Text="{Binding LocalPath.Value}"></TextBox>
+                    <Button Grid.Column="1" VerticalAlignment="Center" Height="30" Command="{Binding OnSelectLocalDir}">Select folder</Button>
+                </Grid>
+                <Grid Grid.Row="5">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#008ACC" FontSize="18" FontWeight="Bold">5</TextBlock>
+                </Grid>
+                <TextBlock Grid.Row="5" Grid.Column="1" FontWeight="Medium" FontSize="14" VerticalAlignment="Center">Options:</TextBlock>
+                <CheckBox Grid.Row="5" IsChecked="{Binding DebugMode.Value}" Grid.Column="2" VerticalAlignment="Center" Content="Debug mode"/>
+                <CheckBox Grid.Row="6" IsChecked="{Binding CleanupLocal.Value}" Grid.Column="2" VerticalAlignment="Center" Content="Clean-up local workspace before and after migration"/>
+                <CheckBox IsEnabled="False" Grid.Row="7" IsChecked="{Binding AutocreateProject.Value}" Grid.Column="2" VerticalAlignment="Center" Content="Automaticly create projects on the target collection"/>
+                <!--Row 6-->
+
+                <!--Row 7-->
 
 
-        </Grid>
+            </Grid>
         </ScrollViewer>
         <Grid Grid.Row="4" Background="#E4E4E4">
             <Grid.ColumnDefinitions>

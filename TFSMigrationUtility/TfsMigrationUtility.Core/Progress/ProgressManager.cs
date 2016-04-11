@@ -28,7 +28,7 @@ namespace TfsMigrationUtility.Core.Progress
             get
             {
 
-                return ServiceLocator.Get<IEnumerable<IProgress>>();
+                return ServiceLocator.GetAll<IProgress>();
             }
         }
 

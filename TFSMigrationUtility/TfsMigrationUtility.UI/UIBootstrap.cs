@@ -15,7 +15,7 @@ namespace TfsMigrationUtility.UI
         public void Bootstrap()
         {
             //Manager
-            ServiceLocator.Add<IUIManager>(new UIManager());
+            ServiceLocator.Set<IUIManager>(new UIManager());
             //MainWindow
             ServiceLocator.Add<IViewModel, MainWindowViewModel>(Views.MainWindow.ToString());
             ServiceLocator.Add<IView, MainWindow>(Views.MainWindow.ToString());

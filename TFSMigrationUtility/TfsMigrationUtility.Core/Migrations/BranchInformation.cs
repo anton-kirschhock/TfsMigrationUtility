@@ -13,6 +13,16 @@ namespace TfsMigrationUtility.Core.Migrations
         public string BranchName { get; set; }
         public string BranchParent { get; set; }
 
+        public BranchInformation()
+        {
+
+        }
+        public BranchInformation(string BranchName,string BranchParent)
+        {
+            this.BranchName = BranchName;
+            this.BranchParent = BranchParent;
+        }
+
         public override bool Equals(object obj)
         {
             if(obj is BranchInformation)
@@ -44,11 +54,12 @@ namespace TfsMigrationUtility.Core.Migrations
             {
                 if (branch.Properties.RootItem.Item.Contains(projectroot))
                 {
-                    BranchInformation branchinfo = new BranchInformation()
-                    {
-                        BranchName = branch.Properties.RootItem.Item,
-                        BranchParent = (branch.Properties.ParentBranch != null ? null : branch.Properties.ParentBranch.Item)
-                    };
+                    BranchInformation branchinfo = new BranchInformation(
+                        branch.Properties.RootItem.Item,
+                        (branch.Properties.ParentBranch != null ? 
+                            null : 
+                            branch.Properties.ParentBranch.Item)
+                    );
                     res.Add(branchinfo);
                     ProgressManager.WriteDebug($"Found branch:{branchinfo.BranchName}");
                 }

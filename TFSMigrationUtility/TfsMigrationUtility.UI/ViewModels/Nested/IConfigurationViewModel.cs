@@ -16,5 +16,6 @@ namespace TfsMigrationUtility.UI.ViewModels.Nested
         ICell<string[]> Projects { get; set; }
         ICell<TfsTeamProjectCollection> SourceTFS { get; set; }
         ICell<TfsTeamProjectCollection> TargetTFS { get; set; }
+        StringCell LocalPath { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace TfsMigrationUtility.UI.ViewModels
     /// A generic wrapper to assist with the Propertychanged, containing a Value of type T
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface ICell<T>:INotifyPropertyChanged
+    public interface ICell<T> : INotifyPropertyChanged
     {
         T Value { get; set; }
         bool HasValue();
@@ -38,14 +38,51 @@ namespace TfsMigrationUtility.UI.ViewModels
                 InvokePropertyChanges();
             }
         }
-        public Cell(T value,IViewModel parent,string propertyname):base(parent,propertyname)
+        public Cell(T value, IViewModel parent, string propertyname) : base(parent, propertyname)
         {
             _value = value;
         }
+        public Cell(IViewModel parent, string propertyname) : this(default(T), parent, propertyname) { }
 
-        public bool HasValue()
+        public virtual bool HasValue()
         {
             return Value != null;
+        }
+    }
+    public interface IStringCell : ICell<string>
+    {
+        /// <summary>
+        /// Appends the line + \n
+        /// </summary>
+        /// <param name="line">Line/Text to append</param>
+        void AppendLine(string line);
+        /// <summary>
+        /// Simply appends the line without \n
+        /// </summary>
+        /// <param name="line">Line/Text to append</param>
+        void Append(string line);
+    }
+    public class StringCell : Cell<string>,IStringCell
+    {
+        public StringCell(IViewModel parent, string propertyname) : this("",parent, propertyname)
+        {
+        }
+
+        public StringCell(string value, IViewModel parent, string propertyname) : base(value, parent, propertyname)
+        {
+        }
+        public void AppendLine(string line)
+        {
+            Append(line + "\n");
+        }
+
+        public void Append(string line)
+        {
+            this.Value += line;
+        }
+        public override bool HasValue()
+        {
+            return !string.IsNullOrEmpty(Value);
         }
     }
 }
