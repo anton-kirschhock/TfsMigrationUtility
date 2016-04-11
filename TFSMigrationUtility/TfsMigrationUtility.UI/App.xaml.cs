@@ -23,7 +23,7 @@ namespace TfsMigrationUtility.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            MainWindow.ShowDialog();
+            MainWindow.Show();
         }
 
     }

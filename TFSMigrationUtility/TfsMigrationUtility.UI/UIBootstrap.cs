@@ -5,8 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TfsMigrationUtility.Core;
 using TfsMigrationUtility.Core.Bootstrap;
+using TfsMigrationUtility.Core.Progress;
 using TfsMigrationUtility.UI.View;
+using TfsMigrationUtility.UI.View.Factories;
 using TfsMigrationUtility.UI.ViewModels;
+using TfsMigrationUtility.UI.ViewModels.Nested;
 
 namespace TfsMigrationUtility.UI
 {
@@ -17,11 +20,11 @@ namespace TfsMigrationUtility.UI
             //Manager
             ServiceLocator.Set<IUIManager>(new UIManager());
             //MainWindow
-            ServiceLocator.Add<IViewModel, MainWindowViewModel>(Views.MainWindow.ToString());
-            ServiceLocator.Add<IView, MainWindow>(Views.MainWindow.ToString());
+            ServiceLocator.Set<IViewModel, MainWindowViewModel>(Views.MainWindow.ToString(),true);
+            ServiceLocator.Set<IViewFactory, MainWindowFactory>(Views.MainWindow.ToString());
 
-            ServiceLocator.Add<IViewModel, MigrateWindowViewModel>(Views.MigrateWindow.ToString());
-            ServiceLocator.Add<IView, MigrateWindows>(Views.MigrateWindow.ToString());
+            ServiceLocator.Set<IViewModel, MigrateWindowViewModel>(Views.MigrateWindow.ToString(), true);
+            ServiceLocator.Set<IViewFactory, MigrateWindowFactory>(Views.MigrateWindow.ToString());
         }
     }
 }

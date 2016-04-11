@@ -50,7 +50,7 @@ namespace TfsMigrationUtility.UI.ViewModels
         {
             Worker = new MigrationWorker();
             ProgressViewModel = new ProgressViewModel(this, nameof(ProgressViewModel));
-            ServiceLocator.Set<IProgress>(ProgressViewModel);
+            ServiceLocator.Set<IProgress>(ProgressViewModel,"UIProgressIndicator");
         }
 
         public void LoadConfig(IConfigurationViewModel config)

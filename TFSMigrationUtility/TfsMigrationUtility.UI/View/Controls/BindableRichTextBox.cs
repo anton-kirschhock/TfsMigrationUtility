@@ -17,16 +17,39 @@ namespace TfsMigrationUtility.UI.View.Controls
             typeof(BindableRichTextBox),
             new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnDocumentChanged))
         );
+        public static readonly DependencyProperty AutoScrollProperty = DependencyProperty.Register(
+            nameof(AutoScroll),
+            typeof(bool),
+            typeof(BindableRichTextBox)
+        );
 
+        public bool AutoScroll
+        {
+            get
+            {
+                return (bool)this.GetValue(AutoScrollProperty);
+            }
+            set
+            {
+                this.SetValue(AutoScrollProperty, value);
+            }
+        }
         public new FlowDocument Document
         {
-            get {
+            get
+            {
                 return (FlowDocument)this.GetValue(DocumentProperty);
             }
             set
             {
                 this.SetValue(DocumentProperty, value);
             }
+        }
+
+        protected override void OnTextChanged(TextChangedEventArgs e)
+        {
+            base.OnTextChanged(e);
+            if (AutoScroll) ScrollToEnd();
         }
         public static void OnDocumentChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {

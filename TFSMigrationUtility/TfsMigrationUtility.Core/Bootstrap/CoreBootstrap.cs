@@ -17,12 +17,12 @@ namespace TfsMigrationUtility.Core.Bootstrap
         public void Bootstrap()
         {
             //Register the MigrationHandler
-            ServiceLocator.Add<IMigrationHandler, MigrationHandler>();
+            ServiceLocator.Set<IMigrationHandler, MigrationHandler>();
             //Register the ProgressManager
-            ServiceLocator.Add<IProgressManager, ProgressManager>();
+            ServiceLocator.Set<IProgressManager, ProgressManager>();
             //Register the mappings
-            ServiceLocator.Add<IItemTypeMapping>(new FolderTypeMapping(),ItemType.Folder.ToString());
-            ServiceLocator.Add<IItemTypeMapping>(new FileTypeMapping(),ItemType.File.ToString());
+            ServiceLocator.Set<IItemTypeMapping>(new FolderTypeMapping(),ItemType.Folder.ToString());
+            ServiceLocator.Set<IItemTypeMapping>(new FileTypeMapping(),ItemType.File.ToString());
             #region "Change Handlers"
             new FolderAddChangeTypeHandler().RegisterType();
             new FolderDeleteChangeTypeHandler().RegisterType();

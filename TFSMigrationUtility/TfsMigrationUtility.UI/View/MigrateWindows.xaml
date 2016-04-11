@@ -83,7 +83,13 @@
             <ProgressBar Grid.Row="0" Maximum="{Binding ProgressViewModel.UpperMaxStep.Value}"  Value="{Binding ProgressViewModel.UpperCurrentStep.Value}"/>
             <Rectangle Grid.Row="1" Fill="Black"/>
             <ProgressBar Grid.Row="2" Maximum="{Binding ProgressViewModel.LowerMaxStep.Value}" Value="{Binding ProgressViewModel.LowerCurrentStep.Value}"/>
-            <custom:BindableRichTextBox IsReadOnly="True" Grid.Row="3" Document="{Binding ProgressViewModel.Info.Value,Converter={StaticResource StringToRTF}}" AcceptsReturn="True" AcceptsTab="True"/>
+            <custom:BindableRichTextBox AutoScroll="True" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Grid.Row="3" Document="{Binding ProgressViewModel.Info.Value,Converter={StaticResource StringToRTF}}" AcceptsReturn="True" AcceptsTab="True">
+                <custom:BindableRichTextBox.Resources>
+                    <Style TargetType="{x:Type Paragraph}">
+                        <Setter Property="Margin" Value="0"/>
+                    </Style>
+                </custom:BindableRichTextBox.Resources>
+            </custom:BindableRichTextBox>
             <Expander Grid.Row="4" Header="Debug information" Visibility="{Binding ConfigVM.DebugMode.Value,Converter={StaticResource BoolToVisibility}}">
                 <TextBox IsReadOnly="True" Text="{Binding ProgressViewModel.Debug.Value}" AcceptsReturn="True" AcceptsTab="True" TextWrapping="WrapWithOverflow"/>
             </Expander>

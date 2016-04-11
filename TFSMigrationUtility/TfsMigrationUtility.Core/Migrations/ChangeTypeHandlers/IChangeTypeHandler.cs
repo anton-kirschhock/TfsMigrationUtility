@@ -46,7 +46,7 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
         public void RegisterType()
         {
             //internal convention: EnumUtilities.GetUsableFlagString(Itemtype)/EnumUtilities.GetUsableFlagString(Changetype)
-            ServiceLocator.Add<IChangeTypeHandler>(this, (EnumUtilities.GetUsableFlagString(ItemType) + "/" + EnumUtilities.GetUsableFlagString(ChangeType)));
+            ServiceLocator.Set<IChangeTypeHandler>(this, (EnumUtilities.GetUsableFlagString(ItemType) + "/" + EnumUtilities.GetUsableFlagString(ChangeType)));
         }
     }
 

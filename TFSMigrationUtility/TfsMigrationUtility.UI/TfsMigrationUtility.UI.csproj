@@ -257,6 +257,9 @@
     <Compile Include="ViewModels\Nested\ProgressViewModel.cs" />
     <Compile Include="View\AbstractView.cs" />
     <Compile Include="View\Controls\BindableRichTextBox.cs" />
+    <Compile Include="View\Factories\IViewFactory.cs" />
+    <Compile Include="View\Factories\MainWindowFactory.cs" />
+    <Compile Include="View\Factories\MigrateWindowFactory.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="View\MigrateWindows.xaml.cs">
       <DependentUpon>MigrateWindows.xaml</DependentUpon>

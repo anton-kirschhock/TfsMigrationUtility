@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,12 +32,12 @@ namespace TfsMigrationUtility.Core.Progress
                 return ServiceLocator.GetAll<IProgress>();
             }
         }
-
+        [DebuggerStepThrough]
         public void InvokeProgress(string description, bool incrementcurrentStep = true)
         {
             InvokeProgress((incrementcurrentStep? ++CurrentStep:CurrentStep), MaxStep, description);
         }
-
+        [DebuggerStepThrough]
         public void InvokeProgress(int currentstep, int maxstep, string description)
         {
             this.CurrentStep = currentstep;
@@ -46,6 +47,7 @@ namespace TfsMigrationUtility.Core.Progress
                 progress.OnProgress(currentstep,maxstep,description);
             }
         }
+        [DebuggerStepThrough]
         public void WriteDebug(string message)
         {
             if (ServiceLocator.Get<MigrationConfig>().DebugMode)
@@ -61,12 +63,15 @@ namespace TfsMigrationUtility.Core.Progress
         /// </summary>
         /// <param name="message"></param>
         /// <param name="e"></param>
+        /// [DebuggerStepThrough]
         public void WriteException(string message, Exception e)
         {
             foreach (IProgress progress in ProgressHandlers)
             {
                 progress.WriteException(message,e);
             }
+            Console.WriteLine(message);
+            Console.WriteLine(e.ToString());
         }
     }
 }

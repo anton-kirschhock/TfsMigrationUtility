@@ -31,22 +31,50 @@ namespace TfsMigrationUtility.Core
             return _container.Resolve<TProxyType>(key);
         }
 
-        public static void Set<TProxyType>(TProxyType implementation)
+        public static void Set<TProxyType>(TProxyType implementation,bool IsTransient=false)
         {
-            _container.RegisterInstance<TProxyType>(implementation);
-        }
-        public static void Add<TProxyType>(TProxyType implementation, string key)
-        {
-            _container.RegisterInstance<TProxyType>(key, implementation);
-        }
-        public static void Add<TProxyType,TImplementation>(string key) where TImplementation : TProxyType
-        {
-            _container.RegisterType(typeof(TProxyType),typeof(TImplementation),key);
+            if (IsTransient) { 
+                _container.RegisterInstance<TProxyType>(implementation,new TransientLifetimeManager());
+            }
+            else
+            {
+                _container.RegisterInstance<TProxyType>(implementation);
+            }
         }
 
-        public static void Add<TProxyType, TImplementation>() where TImplementation:TProxyType
+        public static void Set<TProxyType>(TProxyType implementation, string key, bool IsTransient = false)
         {
-            _container.RegisterType<TProxyType,TImplementation>();
+            if (IsTransient)
+            {
+                _container.RegisterInstance<TProxyType>(key, implementation,new TransientLifetimeManager());
+            }
+            else
+            {
+                _container.RegisterInstance<TProxyType>(key, implementation);
+            }
+        }
+        public static void Set<TProxyType,TImplementation>(string key, bool IsTransient = false) where TImplementation : TProxyType
+        {
+            if (IsTransient)
+            {
+                _container.RegisterType<TProxyType,TImplementation>(key,new TransientLifetimeManager());
+            }
+            else
+            {
+                _container.RegisterType(typeof(TProxyType), typeof(TImplementation), key);
+            }
+        }
+
+        public static void Set<TProxyType, TImplementation>(bool IsTransient = false) where TImplementation:TProxyType
+        {
+            if (IsTransient)
+            {
+                _container.RegisterType<TProxyType, TImplementation>("",new TransientLifetimeManager());
+            }
+            else
+            {
+                _container.RegisterType<TProxyType, TImplementation>();
+            }
         }
     }
 }

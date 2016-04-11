@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TfsMigrationUtility.Core;
 using TfsMigrationUtility.UI.View;
+using TfsMigrationUtility.UI.View.Factories;
 using TfsMigrationUtility.UI.ViewModels;
 
 namespace TfsMigrationUtility.UI
@@ -27,13 +28,14 @@ namespace TfsMigrationUtility.UI
             IView view = null;
             if (!ViewMapping.ContainsKey(instance.View.ToString()))
             {
-                view = ServiceLocator.Get<IView>(instance.View.ToString());//if there is none, get it 
+                view = ServiceLocator.Get<IViewFactory>(instance.View.ToString()).BuildNewView();//if there is none, get it 
                 if (view == null) return false;
                 ViewMapping.Add(instance.View.ToString(), view);
+            
+                view = ViewMapping[instance.View.ToString()];
+                view.ViewModel = instance;
+                view.ShowView();
             }
-            view = ViewMapping[instance.View.ToString()];
-            view.ViewModel = instance;
-            view.ShowView();
             return true;
         }
         public bool CloseView<TViewModel>(TViewModel instance) where TViewModel : IViewModel, IParentViewModel
@@ -43,7 +45,7 @@ namespace TfsMigrationUtility.UI
                 IView view = ViewMapping[instance.View.ToString()];
                 if (view == null) return true;
                 view.Close();//Releases the resources
-                ViewMapping[instance.View.ToString()] = null;
+                view = null;
                 ViewMapping.Remove(instance.View.ToString());//remove it from the active mapping
             }
             return true;
@@ -53,7 +55,7 @@ namespace TfsMigrationUtility.UI
             IView view = null;
             if (!ViewMapping.ContainsKey(Views.MainWindow.ToString()))
             {
-                view = ServiceLocator.Get<IView>(Views.MainWindow.ToString());//if there is none, get it 
+                view = ServiceLocator.Get<IViewFactory>(Views.MainWindow.ToString()).BuildNewView();//if there is none, get it 
                 if (view == null) throw new Exception("Cannot locate the startup view!");
                 ViewMapping.Add(Views.MainWindow.ToString(), view);
             }
