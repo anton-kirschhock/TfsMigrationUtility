@@ -260,6 +260,7 @@
     <Compile Include="Migrations\ChangeTypeHandlers\IItemTypeMapping.cs" />
     <Compile Include="Migrations\IMigrationHandler.cs" />
     <Compile Include="Migrations\MigrationHandler.cs" />
+    <Compile Include="Migrations\ProjectCreator.cs" />
     <Compile Include="Migrations\Workspace\IWorkspaceHandler.cs" />
     <Compile Include="Migrations\Workspace\WorkspaceHandler.cs" />
     <Compile Include="Progress\IProgress.cs" />

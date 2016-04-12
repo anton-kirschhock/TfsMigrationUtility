@@ -11,8 +11,7 @@
             <RowDefinition Height="75"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="1"/>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
         <Grid Background="#008ACC">
             <Grid.ColumnDefinitions>
@@ -48,16 +47,15 @@
                     </Style>
                 </Button.Resources>
                 <Button.Content>
-                    <Grid Width="30" Height="30">
+                    <Grid Width="40" Height="40">
                         <Ellipse StrokeThickness="2"></Ellipse>
-                        <Image Width="20"/>
+                        <Image Width="25"/>
                     </Grid>
                 </Button.Content>
             </Button>
 
         </Grid>
         <Rectangle Grid.Row="1" Fill="Black"/>
-        <Rectangle Grid.Row="3" Fill="Black"/>
         <ScrollViewer Grid.Row="2">
             <Grid DataContext="{Binding ConfigVM}" Margin="0 0 5 0">
                 <Grid.ColumnDefinitions>
@@ -140,23 +138,11 @@
 
             </Grid>
         </ScrollViewer>
-        <Grid Grid.Row="4" Background="#E4E4E4">
+        <Grid Grid.Row="3" Background="#E4E4E4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Command="{Binding ConfigVM.OnStart }">
-                <Button.Content>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="25"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock VerticalAlignment="Center">Migrate</TextBlock>
-                        <Image Width="20" Grid.Column="1" Source="Resources/arrow_forward.png"/>
-                    </Grid>
-                </Button.Content>
-            </Button>
         </Grid>
     </Grid>
 </Window>

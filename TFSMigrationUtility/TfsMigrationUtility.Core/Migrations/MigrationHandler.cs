@@ -10,6 +10,7 @@ using TfsMigrationUtility.Core.Migrations.Workspace;
 using TfsMigrationUtility.Core.Progress;
 using TfsMigrationUtility.Core.Throwables;
 using TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers;
+using Microsoft.TeamFoundation.Server;
 
 namespace TfsMigrationUtility.Core.Migrations
 {
@@ -115,6 +116,14 @@ namespace TfsMigrationUtility.Core.Migrations
             IsRunning = false;
             return res;
         }
+
+        //private async Task<bool> CreateProject(MigrationConfig config,string projectname)
+        //{
+        //    bool res = false;
+        //    var commonservices = config.TargetProjectCollection.GetService<ICommonStructureService>();
+        //    commonservices.CreateProject(projectname, null);
+        //    return res;
+        //}
 
         private async Task MigrateWorker(MigrationConfig config,
             VersionControlServer sourceServer,

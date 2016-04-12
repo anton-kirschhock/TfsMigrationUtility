@@ -32,9 +32,9 @@
             <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,0,21">
                 <Button Command="{Binding OnBack}" Margin="10 0 0 0" >
                     <Button.Content>
-                        <Grid  Width="30" Height="30">
+                        <Grid  Width="40" Height="40">
                             <Ellipse StrokeThickness="2"></Ellipse>
-                            <Image Width="20"/>
+                            <Image Width="25"/>
                         </Grid>
                     </Button.Content>
                     <Button.Resources>
