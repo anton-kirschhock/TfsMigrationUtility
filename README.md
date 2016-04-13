@@ -35,13 +35,14 @@ A free custom opensource utility to migrate a TFS project (or collection) from A
 # Working prototype
 https://github.com/muziekklas/TfsMigrationUtility.Prototype
 
-#Testing
-##Successful
+#Testing#
+##Successful##
 - Migrates correctly the history and branch hierarchy
 - Migrates 1 or 2 projects
 - Migrates TFS 2015 (express) to TFS 2015 (express)
 - Migrates TFS 2015 (express) to VSTS
-##Planned
+ 
+##Planned##
 - Migrate TFS 2013 to VSTS
 - Migrate after a Branch-to-branch merge
 - Test new Progress indicator
