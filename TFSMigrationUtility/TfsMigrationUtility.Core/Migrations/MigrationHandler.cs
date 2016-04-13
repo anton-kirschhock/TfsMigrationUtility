@@ -102,10 +102,12 @@ namespace TfsMigrationUtility.Core.Migrations
                 {
                     //cleanup
                     ProgressManager.InvokeProgress(0, 1, "Starting local directory cleanup...");
+                    ProgressManager.WriteDebug($"Removing {config.LocalPath}...");
                     if (System.IO.Directory.Exists(config.LocalPath))
                     {
                         System.IO.Directory.Delete(config.LocalPath,true);
                     }
+                    ProgressManager.WriteDebug($"Done with removing {config.LocalPath}!");
                     ProgressManager.InvokeProgress("Done with cleanup");
                 }
                 catch (Exception e)
@@ -134,6 +136,7 @@ namespace TfsMigrationUtility.Core.Migrations
         {
             try
             {
+                ServiceLocator.Set<MigrationConfig>(config);
                 ProgressManager.InvokeProgress("Gathering history...", false);
                 var changesets = sourceServer.QueryHistory(config.SourceProject, RecursionType.Full, Int32.MaxValue);
                 int changesetcount = changesets.Count();
@@ -157,7 +160,7 @@ Original checkin:
                     }
                     int originalstep = ProgressManager.CurrentStep;
                     var changes = sourceServer.GetChangesForChangeset(changeset.ChangesetId, true, int.MaxValue, null, null, true);
-                    ProgressManager.InvokeProgress(0, changes.Length, $"Found {changes.Length} changes in changeset {changeset.ChangesetId}");
+                    ProgressManager.InvokeProgress($"Found {changes.Length} changes in changeset {changeset.ChangesetId}",false);
                     var version = new ChangesetVersionSpec(changeset.ChangesetId);
                     foreach (Change change in changes)
                     {

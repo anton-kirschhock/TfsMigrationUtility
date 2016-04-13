@@ -40,7 +40,7 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
                 IChangeTypeHandler handler = GetChangeTypeHandler(changeItem.ItemType, change.ChangeType);
                 if(handler != null)
                 {
-                    progressmanager.WriteDebug($"A handler for {changeItem.ItemType}/{change.ChangeType} was located.");
+                    progressmanager.WriteDebug($"A handler for {changeItem.ItemType}/{change.ChangeType} was located.", false);
                     bool result = handler.HandleChange(config,
                                          sourceServer,
                                          targetServer,
@@ -56,11 +56,11 @@ namespace TfsMigrationUtility.Core.Migrations.ChangeTypeHandlers
                     );
                     if (result)
                     {
-                        progressmanager.InvokeProgress($"handler for {changeItem.ItemType}/{change.ChangeType} was successful!");
+                        progressmanager.InvokeProgress($"handler for {changeItem.ItemType}/{change.ChangeType} was successful!",false);
                     }
                     else
                     {
-                        progressmanager.InvokeProgress($"handler for {changeItem.ItemType}/{change.ChangeType} Failed or was skipped.");
+                        progressmanager.InvokeProgress($"handler for {changeItem.ItemType}/{change.ChangeType} Failed or was skipped.", false);
                     }
                 }
                 else
