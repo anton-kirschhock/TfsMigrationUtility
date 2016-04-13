@@ -46,4 +46,5 @@ https://github.com/muziekklas/TfsMigrationUtility.Prototype
 - Migrate after a Branch-to-branch merge
 - Test new Progress indicator
 - Test why the WriteDebug is not working
-- 
+
+
