@@ -1,5 +1,5 @@
 # TfsMigrationUtility
-A free custom opensource utility to migrate a TFS project (or collection) from A to B, written in only C#.
+A free custom opensource utility to migrate a Team foundation server project (or collection) from A to B, written in only C#.
 # Releases#
 See https://github.com/muziekklas/TfsMigrationUtility/releases for current releases.
 *Currently there is a beta/preview version of the utility.*
