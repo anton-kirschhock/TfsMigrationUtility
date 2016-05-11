@@ -3,6 +3,7 @@ A free custom opensource utility to migrate a Team foundation server project (or
 # Releases#
 See https://github.com/muziekklas/TfsMigrationUtility/releases for current releases.
 *Currently there is a beta/preview version of the utility.*
+There is an issue when migrating to VSTS: Branches are shown as Folders. There is a workarround (see issue).
 # Goals
 
 - Migrate a project, including history, to another server and/or collection (OK)
@@ -11,6 +12,7 @@ See https://github.com/muziekklas/TfsMigrationUtility/releases for current relea
 - A WPF app (OK)
 - A console application (TODO)
 - TFS Support: 2013, 2015 (OK), VSTS (OK)
+- Migrate shelvesets (Prototyping)
 - Auto create projects option, if they don't exist (On hold)
 # Collaboration
 - You can submit Issues with the application via the issues tab.
